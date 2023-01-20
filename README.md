@@ -1,4 +1,4 @@
-# Get a categorized list of custom emoji from a Mastodon server
+# Custom emoji from Mastodon servers
 
 ![](https://i.imgur.com/0pOFiYI.png)
 
