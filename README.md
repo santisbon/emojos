@@ -1,14 +1,14 @@
 # Get a categorized list of custom emoji from a Mastodon server
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![](https://i.imgur.com/ZK4BgDK.png)
 
-## Deploying to AWS as a static website on S3
-
-Test locally
+## Test locally
 ```shell
 npm install
 npm start
 ```
+
+Bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
 
