@@ -2,6 +2,10 @@ body {
   font: 15px Arial, sans-serif;
 }
 
+.footer {
+  font: 14px Arial, sans-serif;
+}
+
 .grid-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(15em, max-content));

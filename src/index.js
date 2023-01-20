@@ -8,9 +8,12 @@ import './index.css';
 function Search(props) {
   return (
     <div>
-      <label htmlFor="server">Server: </label>&nbsp;
-      <input id='server' onChange={props.onChange} value={props.server} placeholder='mastodon.social'></input>&nbsp;
-      <button onClick={props.onClick} disabled={props.server === ""}>Get emojos</button>
+      <label htmlFor='serverInput'>Server: </label>&nbsp;
+      <input id='serverInput' onChange={props.onChange} value={props.server} placeholder='mastodon.social'></input>&nbsp;
+      <button onClick={props.onClick} disabled={props.server === ''}>Get emojos</button>
+      <p/>
+      <img className='grid-item' src='/github-mark.png'></img>&nbsp;
+      <a className='footer' href='https://github.com/santisbon/emojos' target='_blank' rel='noopener noreferrer'>Github</a>
       <p/>
       <label>{props.message}</label>
     </div>
