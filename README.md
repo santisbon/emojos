@@ -1,6 +1,6 @@
 # Get a categorized list of custom emoji from a Mastodon server
 
-![](https://i.imgur.com/ZK4BgDK.png)
+![](https://i.imgur.com/0pOFiYI.png)
 
 ## Test locally
 ```shell
