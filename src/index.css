@@ -1,0 +1,17 @@
+body {
+  font: 15px Arial, sans-serif;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15em, max-content));
+  grid-row-gap: 5px;
+}
+
+.grid-item {
+  height: 20px;
+  width: 20px;
+  object-fit: contain;
+  vertical-align: middle;
+  padding-bottom: 2px;
+}
