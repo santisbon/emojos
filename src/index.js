@@ -12,7 +12,7 @@ function Search(props) {
       <input id='serverInput' onChange={props.onChange} value={props.server} placeholder='mastodon.social'></input>&nbsp;
       <button onClick={props.onClick} disabled={props.server === ''}>Get emojos</button>
       <p/>
-      <img className='grid-item' src='/github-mark.png'></img>&nbsp;
+      <img className='grid-item' src='/github-mark.png' alt='gh'></img>&nbsp;
       <a className='footer' href='https://github.com/santisbon/emojos' target='_blank' rel='noopener noreferrer'>Github</a>
       <p/>
       <label>{props.message}</label>
