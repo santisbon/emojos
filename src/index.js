@@ -13,9 +13,9 @@ function Search(props) {
       <button onClick={props.onClick} disabled={props.server === ''}>Get emojos</button>
       <p/>
         <img className='grid-item' src='/github-mark.png' alt='gh'></img>&nbsp;
-        <a className='footer' href='https://github.com/santisbon/emojos' target='_blank' rel='noopener noreferrer'>Github</a> 
+        <a className='footer' href='https://github.com/santisbon/emojos' target='_blank' rel='noopener noreferrer'>GitHub</a> 
         &nbsp; | &nbsp;
-        <a className='footer' href='https://instances.social/list' target='_blank' rel='noopener noreferrer'>Need help finding an instance?</a>
+        <a className='footer' href='https://instances.social/list/advanced#lang=&allowed=&prohibited=&min-users=20000&max-users=' target='_blank' rel='noopener noreferrer'>Need help finding an instance?</a>
       <p/>
       <label>{props.message}</label>
     </div>
