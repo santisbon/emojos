@@ -12,8 +12,10 @@ function Search(props) {
       <input id='serverInput' onChange={props.onChange} value={props.server} placeholder='mastodon.social'></input>&nbsp;
       <button onClick={props.onClick} disabled={props.server === ''}>Get emojos</button>
       <p/>
-      <img className='grid-item' src='/github-mark.png' alt='gh'></img>&nbsp;
-      <a className='footer' href='https://github.com/santisbon/emojos' target='_blank' rel='noopener noreferrer'>Github</a>
+        <img className='grid-item' src='/github-mark.png' alt='gh'></img>&nbsp;
+        <a className='footer' href='https://github.com/santisbon/emojos' target='_blank' rel='noopener noreferrer'>Github</a> 
+        &nbsp; | &nbsp;
+        <a className='footer' href='https://instances.social/list' target='_blank' rel='noopener noreferrer'>Need help finding an instance?</a>
       <p/>
       <label>{props.message}</label>
     </div>
@@ -71,7 +73,7 @@ function EmojosApp() {
   if(emojos) {
     return (
       <div>
-        <div><h3>Get the custom emoji (emojos) for a Mastodon server</h3></div>
+        <div><h3>Get the custom emojis (emojos) for a Mastodon server</h3></div>
         <p></p>
         <Search onChange={handleChange} onClick={handleClick} server={server} message={message} />
         <dl>
