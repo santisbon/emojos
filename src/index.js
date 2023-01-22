@@ -13,9 +13,9 @@ function Search(props) {
       <button onClick={props.onClick} disabled={props.server === ''}>Get emojos</button>
       <p/>
         <img className='grid-item' src='/github-mark.png' alt='gh'></img>&nbsp;
-        <a className='footer' href='https://github.com/santisbon/emojos' target='_blank' rel='noopener noreferrer'>GitHub</a> 
+        <a href='https://github.com/santisbon/emojos' target='_blank' rel='noopener noreferrer'>GitHub</a> 
         &nbsp; | &nbsp;
-        <a className='footer' href='https://instances.social/list/advanced#lang=&allowed=&prohibited=&min-users=20000&max-users=' target='_blank' rel='noopener noreferrer'>Need help finding an instance?</a>
+        <a href='https://instances.social/list/advanced#lang=&allowed=&prohibited=&min-users=20000&max-users=' target='_blank' rel='noopener noreferrer'>Need help finding an instance?</a>
       <p/>
       <label>{props.message}</label>
     </div>
@@ -50,6 +50,16 @@ function EmojosApp() {
   const [server, setServer] = useState('');
   const [emojos, setEmojos] = useState({});
   const [message, setMessage] = useState('');
+  const [prefersDarkScheme, setPrefersDarkScheme] = useState(window.matchMedia("(prefers-color-scheme: dark)"));
+
+  function toggleTheme() {
+    if (prefersDarkScheme.matches) {
+      document.body.classList.toggle("light-theme");
+      //document.getElementById("imageid").src="img.png";
+    } else {
+      document.body.classList.toggle("dark-theme");
+    }
+  }
 
   useEffect(() => {
     
@@ -74,7 +84,9 @@ function EmojosApp() {
     return (
       <div>
         <div><h3>Get the custom emojis (emojos) for a Mastodon server</h3></div>
-        <p></p>
+        <p>
+        <button onClick={toggleTheme}>Light / Dark</button>
+        </p>
         <Search onChange={handleChange} onClick={handleClick} server={server} message={message} />
         <dl>
           {Object.entries(emojos).map(pair => {return (<Grid key={pair[0]} category={pair[0]} elements={pair[1]} />);})}

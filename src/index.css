@@ -1,9 +1,50 @@
 body {
   font: 15px Arial, sans-serif;
+  color: var(--text-color);
+  background: var(--bkg-color);
+}
+a {
+  color: var(--text-color);
 }
 
-.footer {
-  font: 14px Arial, sans-serif;
+@media (prefers-color-scheme: dark) {
+  /* defaults to dark theme */
+  body {
+    --text-color: #eee;
+    --bkg-color: #333;
+  }
+  a {
+    --text-color: #809fff;
+  }
+  /* if this css class is dynamically added */
+  body.light-theme {
+    --text-color: #333;
+    --bkg-color: #eee;
+  }
+  /* any anchor inside an element with that css class */
+  .light-theme a {
+    --text-color: #0033cc;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  /* defaults to light theme */
+  body {
+    --text-color: #333;
+    --bkg-color: #eee;
+  }
+  a {
+    --text-color: #0033cc;
+  }
+  /* if this css class is dynamically added */
+  body.dark-theme {
+    --text-color: #eee;
+    --bkg-color: #333;
+  }
+  /* any anchor inside an element with that css class */
+  .dark-theme a {
+    --text-color: #809fff;
+  }
 }
 
 .grid-container {
@@ -19,3 +60,4 @@ body {
   vertical-align: middle;
   padding-bottom: 2px;
 }
+
