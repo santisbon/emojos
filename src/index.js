@@ -12,7 +12,11 @@ function Search(props) {
       <input id='serverInput' onChange={props.onChange} value={props.server} placeholder='mastodon.social'></input>&nbsp;
       <button onClick={props.onClick} disabled={props.server === ''}>Get emojos</button>
       <p/>
-        <img id='githubLogo' className='grid-item' src={props.logo} alt='gh'></img>&nbsp;
+        <picture>
+          <source srcSet='/github-mark-white.png' media='(prefers-color-scheme: dark)' />
+          <img src='/github-mark.png' className='grid-item' alt='gh' />
+        </picture>
+        &nbsp;
         <a href='https://github.com/santisbon/emojos' target='_blank' rel='noopener noreferrer'>GitHub</a> 
         &nbsp; | &nbsp;
         <a href='https://instances.social/list/advanced#lang=&allowed=&prohibited=&min-users=20000&max-users=' target='_blank' rel='noopener noreferrer'>Need help finding an instance?</a>
@@ -51,7 +55,6 @@ function EmojosApp() {
   const [emojos, setEmojos] = useState({});
   const [message, setMessage] = useState('');
   const [prefersDarkScheme, setPrefersDarkScheme] = useState(window.matchMedia("(prefers-color-scheme: dark)").matches);
-  const [logo, setLogo] = useState('');
 
   function toggleTheme() {
     if (prefersDarkScheme) {
@@ -59,22 +62,13 @@ function EmojosApp() {
     } else {
       document.body.classList.toggle("dark-theme");
     }
-    
-    if(logo === "/github-mark-white.png") {
-      setLogo("/github-mark.png");
-    } else {
-      setLogo("/github-mark-white.png");
-    }
   }
 
   useEffect(() => {
-    if(prefersDarkScheme) {
-      setLogo("/github-mark-white.png");
-    } else {
-      setLogo("/github-mark.png");
-    }
+    
   });
 
+  // Search click
   function handleClick(e) {
     getGroupedData('https://' + server + '/api/v1/custom_emojis', 'category').then((groupedEmojos)=>{
       setEmojos(groupedEmojos);
@@ -86,6 +80,7 @@ function EmojosApp() {
     });
   }
 
+  // Search change
   function handleChange(e) {
     setServer(e.target.value);
   }
@@ -97,7 +92,7 @@ function EmojosApp() {
         <p>
         <button onClick={toggleTheme}>Light / Dark</button>
         </p>
-        <Search onChange={handleChange} onClick={handleClick} server={server} message={message} logo={logo} />
+        <Search onChange={handleChange} onClick={handleClick} server={server} message={message} />
         <dl>
           {Object.entries(emojos).map(pair => {return (<Grid key={pair[0]} category={pair[0]} elements={pair[1]} />);})}
         </dl>
@@ -105,7 +100,7 @@ function EmojosApp() {
     );
   }
   else {
-    return (<Search onChange={handleChange} onClick={handleClick} logo={logo} />);
+    return (<Search onChange={handleChange} onClick={handleClick} />);
   }
 }
 
