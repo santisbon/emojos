@@ -16,15 +16,6 @@ a {
   a {
     --text-color: #809fff;
   }
-  /* if this css class is dynamically added */
-  body.light-theme {
-    --text-color: #333;
-    --bkg-color: #eee;
-  }
-  /* any anchor inside an element with that css class */
-  .light-theme a {
-    --text-color: #0033cc;
-  }
 }
 
 @media (prefers-color-scheme: light) {
@@ -35,15 +26,6 @@ a {
   }
   a {
     --text-color: #0033cc;
-  }
-  /* if this css class is dynamically added */
-  body.dark-theme {
-    --text-color: #eee;
-    --bkg-color: #333;
-  }
-  /* any anchor inside an element with that css class */
-  .dark-theme a {
-    --text-color: #809fff;
   }
 }
 

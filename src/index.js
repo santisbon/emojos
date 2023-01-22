@@ -56,19 +56,11 @@ function EmojosApp() {
   const [message, setMessage] = useState('');
   const [prefersDarkScheme, setPrefersDarkScheme] = useState(window.matchMedia("(prefers-color-scheme: dark)").matches);
 
-  function toggleTheme() {
-    if (prefersDarkScheme) {
-      document.body.classList.toggle("light-theme");
-    } else {
-      document.body.classList.toggle("dark-theme");
-    }
-  }
-
   useEffect(() => {
     
   });
 
-  // Search click
+  // Search button click
   function handleClick(e) {
     getGroupedData('https://' + server + '/api/v1/custom_emojis', 'category').then((groupedEmojos)=>{
       setEmojos(groupedEmojos);
@@ -80,7 +72,7 @@ function EmojosApp() {
     });
   }
 
-  // Search change
+  // Search input text change
   function handleChange(e) {
     setServer(e.target.value);
   }
@@ -90,7 +82,6 @@ function EmojosApp() {
       <div>
         <div><h3>Get the custom emojis (emojos) for a Mastodon server</h3></div>
         <p>
-        <button onClick={toggleTheme}>Light / Dark</button>
         </p>
         <Search onChange={handleChange} onClick={handleClick} server={server} message={message} />
         <dl>
