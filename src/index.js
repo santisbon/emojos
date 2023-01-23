@@ -4,10 +4,10 @@ import './index.css';
 
 function Search(props) {
   return (
-    <div>
+    <section>
       <label htmlFor='serverInput'>Server: </label>&nbsp;
       <input id='serverInput' onChange={props.onChange} value={props.server} placeholder='mastodon.social'></input>&nbsp;
-      <button onClick={props.onClick} disabled={props.server === ''}>Get emojos</button>
+      <button type='button' onClick={props.onClick} disabled={props.server === ''}>Get emojos</button>
       <p/>
         <picture>
           <source srcSet='/github-mark-white.png' media='(prefers-color-scheme: dark)' />
@@ -19,14 +19,14 @@ function Search(props) {
         <a href='https://instances.social/list/advanced#lang=&allowed=&prohibited=&min-users=20000&max-users=' target='_blank' rel='noopener noreferrer'>Need help finding an instance?</a>
       <p/>
       <label>{props.message}</label>
-    </div>
+    </section>
   );
 }
 
-function Grid(props) {
+function Results(props) {
   if(props) {
     return (
-      <div>
+      <section>
         <div>
           <dt>
             <h4>
@@ -42,7 +42,7 @@ function Grid(props) {
               </dd>);
           })}
         </div>
-      </div>
+      </section>
     );
   }
 }
@@ -83,20 +83,20 @@ function EmojosApp() {
   }
 
   return (
-    <div>
-      <aside>
+    <main>
+      <section>
         <dark-mode-toggle appearance="switch" light="Day&nbsp;&nbsp;&nbsp;&nbsp;" dark="Night"></dark-mode-toggle>
-      </aside>
-      <main>
-        <div><h3>Get the custom emojis (emojos) for a Mastodon server</h3></div>
+      </section>
+      <section>
+        <div><h3>Mastodon custom emojis (emojos)</h3></div>
         <p>
         </p>
         <Search onChange={handleChange} onClick={handleClick} server={server} message={message} />
         <dl>
-          {Object.entries(emojos).map(pair => {return (<Grid key={pair[0]} category={pair[0]} elements={pair[1]} />);})}
+          {Object.entries(emojos).map(pair => {return (<Results key={pair[0]} category={pair[0]} elements={pair[1]} />);})}
         </dl>
-      </main>
-    </div>
+      </section>
+    </main>
   );
 }
 
