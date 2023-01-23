@@ -65,33 +65,6 @@ function EmojosApp() {
     })
   });
 
-  function updateSourceMedia(colorPreference) {
-    const pictures = document.querySelectorAll('picture');
-    pictures.forEach(picture => {
-      // sources is a NodeListOf<HTMLSourceElement>
-      const sources = picture.querySelectorAll(`
-        source[media*="prefers-color-scheme"], 
-        source[data-media*="prefers-color-scheme"]
-      `);
-
-      sources.forEach(source => {
-        // Preserve the source `media` as a data-attribute
-        // to be able to switch between preferences
-        if (source?.media.includes('prefers-color-scheme')) {
-          source.dataset.media = source.media
-        }
-        // If the source element `media` target is the `preference`,
-        // override it to 'all' to show
-        // or set it to 'none' to hide
-        if (source?.dataset.media.includes(colorPreference)) {
-          source.media = 'all'
-        } else if (source) {
-          source.media = 'none'
-        }
-      });
-    });
-  }
-
   // Search button click
   function handleClick(e) {
     getGroupedData('https://' + server + '/api/v1/custom_emojis', 'category').then((groupedEmojos)=>{
@@ -112,7 +85,7 @@ function EmojosApp() {
   return (
     <div>
       <aside>
-        <dark-mode-toggle></dark-mode-toggle>
+        <dark-mode-toggle appearance="switch"></dark-mode-toggle>
       </aside>
       <main>
         <div><h3>Get the custom emojis (emojos) for a Mastodon server</h3></div>
@@ -154,4 +127,31 @@ function copyEmojo(shortcode) {
   var item = document.getElementById(shortcode);
   item.innerHTML = 'Copied!';
   setTimeout(() => {item.innerHTML = ':'+shortcode+':'}, 1200);
+}
+
+function updateSourceMedia(colorPreference) {
+  const pictures = document.querySelectorAll('picture');
+  pictures.forEach(picture => {
+    // sources is a NodeListOf<HTMLSourceElement>
+    const sources = picture.querySelectorAll(`
+      source[media*="prefers-color-scheme"], 
+      source[data-media*="prefers-color-scheme"]
+    `);
+
+    sources.forEach(source => {
+      // Preserve the source `media` as a data-attribute
+      // to be able to switch between preferences
+      if (source?.media.includes('prefers-color-scheme')) {
+        source.dataset.media = source.media
+      }
+      // If the source element `media` target is the `preference`,
+      // override it to 'all' to show
+      // or set it to 'none' to hide
+      if (source?.dataset.media.includes(colorPreference)) {
+        source.media = 'all'
+      } else if (source) {
+        source.media = 'none'
+      }
+    });
+  });
 }

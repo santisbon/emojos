@@ -1,11 +1,6 @@
 body {
   font: 15px Arial, sans-serif;
-  /* color: var(--text-color);
-  background: var(--bkg-color); */
 }
-/* a {
-  color: var(--text-color); 
-} */
 
 :root[data-theme='light'] {
   color: #333;
