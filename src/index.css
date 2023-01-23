@@ -25,26 +25,6 @@ body {
   color: #809fff;
 }
 
-/* @media (prefers-color-scheme: light) {
-  body {
-    --text-color: #333;
-    --bkg-color: #eee;
-  }
-  a {
-    --text-color: #0033cc;
-  }
-} 
-
-@media (prefers-color-scheme: dark) {
-  body {
-    --text-color: #eee;
-    --bkg-color: #333;
-  }
-  a {
-    --text-color: #809fff;
-  }
-} */
-
 .grid-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(15em, max-content));
