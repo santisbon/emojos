@@ -6,7 +6,7 @@ function Search(props) {
   return (
     <section>
       <label htmlFor='serverInput'>Server: </label>&nbsp;
-      <input id='serverInput' onChange={props.onChange} value={props.server} placeholder='mastodon.social'></input>&nbsp;
+      <input id='serverInput' onChange={props.onChange} value={props.server} placeholder='mastodon.social' size='15'></input>&nbsp;
       <button type='button' onClick={props.onClick} disabled={props.server === ''}>Get emojos</button>
       <p/>
         <picture>
