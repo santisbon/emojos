@@ -7,7 +7,7 @@ function Search(props) {
     <section>
       <label htmlFor='serverInput'>Server: </label>&nbsp;
       <input id='serverInput' onChange={props.onChange} value={props.server} placeholder='mastodon.social' size='15'></input>&nbsp;
-      <button type='button' onClick={props.onClick} disabled={props.server === ''}>Get emojos</button>
+      <button type='button' onClick={props.onClick} disabled={props.server === ''}>Get</button>
       <p/>
         <picture>
           <source srcSet='/github-mark-white.png' media='(prefers-color-scheme: dark)' />
@@ -16,7 +16,7 @@ function Search(props) {
         &nbsp;
         <a href='https://github.com/santisbon/emojos' target='_blank' rel='noopener noreferrer'>GitHub</a> 
         &nbsp; | &nbsp;
-        <a href='https://instances.social/list/advanced#lang=&allowed=&prohibited=&min-users=20000&max-users=' target='_blank' rel='noopener noreferrer'>Need help finding an instance?</a>
+        <a href='https://instances.social/list/advanced#lang=&allowed=&prohibited=&min-users=20000&max-users=' target='_blank' rel='noopener noreferrer'>Help me find an instance</a>
       <p/>
       <label>{props.message}</label>
     </section>
@@ -87,11 +87,13 @@ function EmojosApp() {
       <section>
         <dark-mode-toggle appearance="switch" light="Day&nbsp;&nbsp;&nbsp;&nbsp;" dark="Night"></dark-mode-toggle>
       </section>
-      <section>
+      <section className='center'>
         <div><h3>Mastodon custom emojis (emojos)</h3></div>
         <p>
         </p>
         <Search onChange={handleChange} onClick={handleClick} server={server} message={message} />
+      </section>
+      <section>
         <dl>
           {Object.entries(emojos).map(pair => {return (<Results key={pair[0]} category={pair[0]} elements={pair[1]} />);})}
         </dl>
