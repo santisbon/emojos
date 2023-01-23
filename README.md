@@ -8,7 +8,7 @@
 
 ## 📸
 
-![](https://i.imgur.com/jAaoKn9.png)
+![](https://i.imgur.com/EWV9Gi7.jpg)
 
 ## Test locally
 ```shell
