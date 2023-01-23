@@ -54,10 +54,17 @@ function EmojosApp() {
   const [server, setServer] = useState('');
   const [emojos, setEmojos] = useState({});
   const [message, setMessage] = useState('');
-  const [prefersDarkScheme, setPrefersDarkScheme] = useState(window.matchMedia("(prefers-color-scheme: dark)").matches);
+  const [prefersTheme, setPrefersTheme] = useState(window.matchMedia("(prefers-color-scheme: dark)").matches ? 'dark' : 'light');
 
   useEffect(() => {
-    
+    //setPrefersTheme(window.matchMedia("(prefers-color-scheme: dark)").matches ? 'dark' : 'light');
+
+    if (prefersTheme === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    } 
+    else {
+      document.documentElement.setAttribute('data-theme', 'light');
+    }
   });
 
   // Search button click

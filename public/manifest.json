@@ -11,6 +11,11 @@
       "src": "github-mark.png",
       "type": "image/png",
       "sizes": "240x240"
+    },
+    {
+      "src": "github-mark-white.png",
+      "type": "image/png",
+      "sizes": "240x240"
     }
   ],
   "start_url": ".",
