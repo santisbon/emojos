@@ -1,6 +1,14 @@
-# Custom emoji from Mastodon servers
+# Custom emojis from Mastodon servers
+  
+## Features
 
-![](https://i.imgur.com/0pOFiYI.png)
+- Displays the custom emojis from any Mastodon server, grouped by category.
+- Support for dark mode. It respects your device's preference for light or dark mode but allows you to change it for this site.
+- Click/tap to copy.
+
+## 📸
+
+![](https://i.imgur.com/PbK2Plm.png)
 
 ## Test locally
 ```shell
@@ -11,8 +19,6 @@ npm start
 <details>
 
 <summary>More info</summary>
-
-Bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
 
