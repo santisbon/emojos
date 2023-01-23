@@ -85,7 +85,7 @@ function EmojosApp() {
   return (
     <div>
       <aside>
-        <dark-mode-toggle appearance="switch"></dark-mode-toggle>
+        <dark-mode-toggle appearance="switch" light="Day&nbsp;&nbsp;&nbsp;&nbsp;" dark="Night"></dark-mode-toggle>
       </aside>
       <main>
         <div><h3>Get the custom emojis (emojos) for a Mastodon server</h3></div>
