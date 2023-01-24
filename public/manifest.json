@@ -8,14 +8,24 @@
       "type": "image/x-icon"
     },
     {
-      "src": "github-mark.png",
-      "type": "image/png",
-      "sizes": "240x240"
+      "src": "github-mark.svg",
+      "type": "image/svg+xml",
+      "sizes": "20x20"
     },
     {
-      "src": "github-mark-white.png",
-      "type": "image/png",
-      "sizes": "240x240"
+      "src": "github-mark-white.svg",
+      "type": "image/svg+xml",
+      "sizes": "20x20"
+    },
+    {
+      "src": "logo-black.svg",
+      "type": "image/svg+xml",
+      "sizes": "20x20"
+    },
+    {
+      "src": "logo-white.svg",
+      "type": "image/svg+xml",
+      "sizes": "20x20"
     }
   ],
   "start_url": ".",
