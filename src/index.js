@@ -7,7 +7,7 @@ function Search(props) {
     <section>
       <label htmlFor='serverInput'>Server: </label>&nbsp;
       <input id='serverInput' onChange={props.onChange} value={props.server} placeholder='mastodon.social' size='15'></input>&nbsp;
-      <button type='button' onClick={props.onClick} disabled={props.server === ''}>Get</button>
+      <button type='button' onClick={props.onClick} disabled={props.server.trim() === ''}>Get</button>
       <p/>
       <a href='https://instances.social/list/advanced#lang=&allowed=&prohibited=&min-users=20000&max-users=' target='_blank' rel='noopener noreferrer'>Help me find a server</a>
       <p/>
@@ -72,7 +72,7 @@ function EmojosApp() {
 
   // Search button click
   function handleClick(e) {
-    getGroupedData('https://' + server + '/api/v1/custom_emojis', 'category').then((groupedEmojos)=>{
+    getGroupedData('https://' + server.trim() + '/api/v1/custom_emojis', 'category').then((groupedEmojos)=>{
       setEmojos(groupedEmojos);
       setMessage('Click/tap to copy');
     }).catch(error => {
@@ -93,7 +93,7 @@ function EmojosApp() {
         <dark-mode-toggle appearance="switch" light="Day&nbsp;&nbsp;&nbsp;&nbsp;" dark="Night"></dark-mode-toggle>
       </section>
       <section className='center'>
-        <div><h3>Mastodon custom emojis (emojos)</h3></div>
+        <div><h3>Mastodon Custom Emojis (Emojos)</h3></div>
         <p>
         </p>
         <Search onChange={handleChange} onClick={handleClick} server={server} message={message} />
