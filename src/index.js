@@ -9,7 +9,7 @@ function Search(props) {
       <input id='serverInput' onChange={props.onChange} value={props.server} placeholder='mastodon.social' size='15'></input>&nbsp;
       <button type='button' onClick={props.onClick} disabled={props.server === ''}>Get</button>
       <p/>
-      <a href='https://instances.social/list/advanced#lang=&allowed=&prohibited=&min-users=20000&max-users=' target='_blank' rel='noopener noreferrer'>Help me find an instance</a>
+      <a href='https://instances.social/list/advanced#lang=&allowed=&prohibited=&min-users=20000&max-users=' target='_blank' rel='noopener noreferrer'>Help me find a server</a>
       <p/>
       <picture>
         <source srcSet='/github-mark-white.svg' media='(prefers-color-scheme: dark)' />
@@ -21,7 +21,7 @@ function Search(props) {
         <source srcSet='/logo-white.svg' media='(prefers-color-scheme: dark)' />
         <img src='/logo-black.svg' className='grid-item' alt='Mastodon' />
       </picture>&nbsp;
-      <a rel="me" href="https://mastodon.social/@santisbon" target='_blank'>Mastodon</a>
+      <a rel="me" href="https://mastodon.social/@santisbon">Mastodon</a>
       <p/>
       <label>{props.message}</label>
     </section>
