@@ -13,8 +13,8 @@ export async function action({ request, params }) {
   const formData = await request.formData();
   const data = Object.fromEntries(formData);
   try {
-    const server = await createServer(data.id.trim());
-    document.getElementById("id").value = "";
+    const server = await createServer(data.serverId.trim());
+    document.getElementById("serverId").value = "";
     return redirect(`/servers/${server.id}`);
   } catch (error) {
     alert(error);
@@ -109,8 +109,8 @@ export default function Root() {
         <div>
           <Form method="post">
             <input 
-              id="id"
-              name="id"
+              id="serverId"
+              name="serverId"
               aria-label="Add server"
               placeholder="mastodon.social"
               size="13"

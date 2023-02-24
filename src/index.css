@@ -103,7 +103,7 @@ form[action$="destroy"] button {
 }
 
 #sidebar {
-  width: 22rem;
+  width: 19rem;
   background-color: #f7f7f7;
   border-right: solid 1px #e3e3e3;
   display: flex;
@@ -402,4 +402,8 @@ i {
   object-fit: contain;
   vertical-align: middle;
   padding-bottom: 2px;
+}
+
+#serverId {
+  margin-right: 0.5rem;
 }
