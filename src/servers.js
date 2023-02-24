@@ -32,23 +32,20 @@ export async function getServer(id) {
 
   let server = servers.find(server => server.id === id);
   
-  if (!server) {
-    //server = await createServer(id);
-    return null;
+  if (server) {
+    let instance = await getInstance(server.id); 
+    server.domain = instance.domain;
+    server.avatar = instance.thumbnail.url;
+    server.version = instance.version;
+    server.description = instance.description;
+    server.mau = instance.usage.users.active_month;
+    server.maxchars = instance.configuration.statuses.max_characters;
+    server.translation = instance.configuration.translation.enabled;
+
+    let emojos = await getGroupedData('https://' + server.domain.trim() + "/api/v1/custom_emojis" , "category");
+    server.emojos = emojos;  
   }
   
-  let instance = await getInstance(server.id); 
-  server.domain = instance.domain;
-  server.avatar = instance.thumbnail.url;
-  server.version = instance.version;
-  server.description = instance.description;
-  server.mau = instance.usage.users.active_month;
-  server.maxchars = instance.configuration.statuses.max_characters;
-  server.translation = instance.configuration.translation.enabled;
-
-  let emojos = await getGroupedData('https://' + server.domain.trim() + "/api/v1/custom_emojis" , "category");
-  server.emojos = emojos;
-
   return server ?? null;
 }
 
