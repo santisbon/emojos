@@ -8,7 +8,7 @@ export async function getServers(query) {
   if (query) {
     servers = matchSorter(servers, query, { keys: ["id", "notes", "favorite"] });
   }
-  return servers.sort(sortBy("domain", "createdAt"));
+  return servers.sort(sortBy("id", "createdAt"));
 }
 
 export async function createServer(id) {
@@ -40,7 +40,8 @@ export async function getServer(id) {
   
   if (server) {
     let instance = await getInstance(server.id);
-    if (instance) {
+    let instancev1 = await getInstance(server.id, "v1");
+    if (instance && instancev1) {
       server.domain = instance.domain;
       server.avatar = instance.thumbnail.url;
       server.version = instance.version;
@@ -48,6 +49,9 @@ export async function getServer(id) {
       server.mau = instance.usage.users.active_month;
       server.maxchars = instance.configuration.statuses.max_characters;
       server.translation = instance.configuration.translation.enabled;
+      server.registrationsEnabled = instance.registrations.enabled;
+      server.approvalRequired = instance.registrations.approval_required;
+      server.users = instancev1.stats.user_count;
 
       let emojos = await getGroupedData('https://' + server.domain.trim() + "/api/v1/custom_emojis" , "category");
       server.emojos = emojos;
@@ -142,13 +146,13 @@ function groupBy(data, key) {
   }, {}); // {} is the initial value of the accumulator
 };
 
-async function getInstance(domain) {
+async function getInstance(domain, version = "v2") {
   const axios = window.axios;
   let response;
   try {
-    response = await axios.get('https://' + domain.trim() + '/api/v2/instance');
+    response = await axios.get('https://' + domain.trim() + `/api/${version}/instance`);
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
   
   return response?.data ?? null;

@@ -1,5 +1,5 @@
 import { Form, useLoaderData, useFetcher, } from "react-router-dom";
-import { getServer, updateServer } from "../servers";
+import { getServer, updateServer, copyEmojo } from "../servers";
 
 export async function loader({ params }) {
   const server = await getServer(params.serverId);
@@ -24,14 +24,13 @@ export default function Server() {
 
   return (
     <>
+      <div id="server-avatar">
+        <img
+          key={server.avatar}
+          src={server.avatar || null}
+        />
+      </div>
       <div id="server">
-        <div>
-          <img
-            key={server.avatar}
-            src={server.avatar || null}
-          />
-        </div>
-
         <div>
           <h1>
             {server.domain ? (
@@ -46,9 +45,12 @@ export default function Server() {
 
           <p>
             Version: {server.version}<br/>
-            Monthly active users: {server.mau}<br/>
-            Max characters per post: {server.maxchars}<br/>
-            Translation enabled: {server.translation.toString()}
+            Users: {new Intl.NumberFormat().format(server.users)}<br />
+            Monthly active users: {new Intl.NumberFormat().format(server.mau)}<br/>
+            Registrations open: {server.registrationsEnabled ? "Yes" : "No"}<br/>
+            Approval required: {server.approvalRequired ? "Yes" : "No"} <br />
+            Character limit: {new Intl.NumberFormat().format(server.maxchars)}<br/>
+            Translation: {server.translation ? "Yes": "No"}
           </p>
           {server.description && (<p>{server.description}</p>)}
           
@@ -140,7 +142,7 @@ function Emojos(props) {
         <div className='grid-container'>
           {props.elements.map(element => {
             return (<dd key={element.shortcode} onClick={() => {copyEmojo(element.shortcode)}}>
-                <img className='grid-item' src={element.url} alt={element.shortcode} />&nbsp;
+                <img className='grid-item' src={element.url} alt={element.shortcode} />
                 <span id={element.shortcode}>:{element.shortcode}:</span>
               </dd>);
           })}

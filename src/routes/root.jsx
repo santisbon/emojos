@@ -105,7 +105,7 @@ export default function Root() {
   return (
     <>
       <div id="sidebar">
-        <h1>Servers</h1>
+        <h1>My server catalog</h1>
         <div>
           <Form method="post">
             <input 
@@ -113,11 +113,11 @@ export default function Root() {
               name="id"
               aria-label="Add server"
               placeholder="mastodon.social"
-              size="15"
+              size="13"
               required
-            /> &nbsp;
+            /> 
             <button type="submit">Add</button>
-          </Form>
+          </Form>  
         </div>
         <div>
           <Form id="search-form" role="search">
@@ -128,7 +128,7 @@ export default function Root() {
               placeholder="Search"
               type="search"
               name="q"
-              size="13"
+              size="11"
               defaultValue={q}
               onChange={(event) => {
                 const isFirstSearch = q == null;
@@ -181,6 +181,19 @@ export default function Root() {
             </p>
           )}
         </nav>
+        <div>
+          <picture>
+            <source srcSet='/github-mark-white.svg' media='(prefers-color-scheme: dark)' />
+            <img src='/github-mark.svg' className='footer-item' alt='GitHub' />
+          </picture>
+          <a href='https://github.com/santisbon/emojos' target='_blank' rel='noopener noreferrer'>GitHub</a> 
+          |
+          <picture>
+            <source srcSet='/logo-white.svg' media='(prefers-color-scheme: dark)' />
+            <img src='/logo-black.svg' className='footer-item' alt='Mastodon' />
+          </picture>
+          <a rel="me" href="https://universeodon.com/@santisbon">Mastodon</a>
+        </div>
       </div>
       <div 
         id="detail"
