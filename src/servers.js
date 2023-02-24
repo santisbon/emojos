@@ -25,7 +25,18 @@ export async function createServer(id) {
 
 export async function getServer(id) {
   let servers = await localforage.getItem("servers");
+  if (!servers) {
+    servers = [];
+    await set(servers);
+  } 
+
   let server = servers.find(server => server.id === id);
+  
+  if (!server) {
+    //server = await createServer(id);
+    return null;
+  }
+  
   let instance = await getInstance(server.id); 
   server.domain = instance.domain;
   server.avatar = instance.thumbnail.url;
@@ -34,6 +45,9 @@ export async function getServer(id) {
   server.mau = instance.usage.users.active_month;
   server.maxchars = instance.configuration.statuses.max_characters;
   server.translation = instance.configuration.translation.enabled;
+
+  let emojos = await getGroupedData('https://' + server.domain.trim() + "/api/v1/custom_emojis" , "category");
+  server.emojos = emojos;
 
   return server ?? null;
 }
@@ -98,7 +112,7 @@ export function updateSourceMedia(colorPreference) {
   });
 }
 
-export const getGroupedData = async (url, group) => {
+const getGroupedData = async (url, group) => {
   const axios = window.axios;
   const response = await axios.get(url);
   return groupBy(response.data, group);
@@ -126,7 +140,5 @@ function groupBy(data, key) {
 async function getInstance(domain) {
   const axios = window.axios;
   const response = await axios.get('https://' + domain.trim() + '/api/v2/instance');
-  
-  //console.log(response.data);
   return response.data;
 }
