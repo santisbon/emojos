@@ -23,58 +23,66 @@ export default function Server() {
   const server = useLoaderData();
 
   return (
-    <div id="server">
-      <div>
-        <img
-          key={server.avatar}
-          src={server.avatar || null}
-        />
-      </div>
-
-      <div>
-        <h1>
-          {server.domain ? (
-            <>
-              <a href={`https://${server.domain}`} target='_blank' rel='noopener noreferrer'>{server.domain}</a>
-            </>
-          ) : (
-            <i>No Domain</i>
-          )}{" "}
-          <Favorite server={server} />
-        </h1>
-
-        <p>
-          Version: {server.version}<br/>
-          Monthly active users: {server.mau}<br/>
-          Max characters per post: {server.maxchars}<br/>
-          Translation enabled: {server.translation.toString()}
-        </p>
-        {server.description && (<p>{server.description}</p>)}
-        
-        {server.notes && <p>{server.notes}</p>}
+    <>
+      <div id="server">
+        <div>
+          <img
+            key={server.avatar}
+            src={server.avatar || null}
+          />
+        </div>
 
         <div>
-          <Form action="edit">
-            <button type="submit">Edit</button>
-          </Form>
-          <Form
-            method="post"
-            action="destroy"
-            onSubmit={(event) => {
-              if (
-                !confirm(
-                  "Please confirm you want to delete this record."
-                )
-              ) {
-                event.preventDefault();
-              }
-            }}
-          >
-            <button type="submit">Delete</button>
-          </Form>
+          <h1>
+            {server.domain ? (
+              <>
+                <a href={`https://${server.domain}`} target='_blank' rel='noopener noreferrer'>{server.domain}</a>
+              </>
+            ) : (
+              <i>No Domain</i>
+            )}{" "}
+            <Favorite server={server} />
+          </h1>
+
+          <p>
+            Version: {server.version}<br/>
+            Monthly active users: {server.mau}<br/>
+            Max characters per post: {server.maxchars}<br/>
+            Translation enabled: {server.translation.toString()}
+          </p>
+          {server.description && (<p>{server.description}</p>)}
+          
+          {server.notes && <p>{server.notes}</p>}
+
+          <div>
+            <Form action="edit">
+              <button type="submit">Edit</button>
+            </Form>
+            <Form
+              method="post"
+              action="destroy"
+              onSubmit={(event) => {
+                if (
+                  !confirm(
+                    "Please confirm you want to delete this record."
+                  )
+                ) {
+                  event.preventDefault();
+                }
+              }}
+            >
+              <button type="submit">Delete</button>
+            </Form>
+          </div>
         </div>
       </div>
-    </div>
+      <div>
+        <h2>Custom Emojis</h2>
+        <dl>
+          {Object.entries(server.emojos).map(pair => {return (<Emojos key={pair[0]} category={pair[0]} elements={pair[1]} />);})}
+        </dl>
+      </div>
+    </>
   );
 }
 
@@ -116,4 +124,28 @@ function Favorite({ server }) {
       </button>
     </fetcher.Form>
   );
+}
+
+function Emojos(props) {
+  if(props) {
+    return (
+      <section>
+        <div>
+          <dt>
+            <h4>
+            {props.category === 'undefined' ? 'No category' : props.category }
+            </h4>
+          </dt>
+        </div>
+        <div className='grid-container'>
+          {props.elements.map(element => {
+            return (<dd key={element.shortcode} onClick={() => {copyEmojo(element.shortcode)}}>
+                <img className='grid-item' src={element.url} alt={element.shortcode} />&nbsp;
+                <span id={element.shortcode}>:{element.shortcode}:</span>
+              </dd>);
+          })}
+        </div>
+      </section>
+    );
+  }
 }
