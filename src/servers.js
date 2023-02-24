@@ -6,7 +6,7 @@ export async function getServers(query) {
   let servers = await localforage.getItem("servers");
   if (!servers) servers = [];
   if (query) {
-    servers = matchSorter(servers, query, { keys: ["id", "domain", "title"] });
+    servers = matchSorter(servers, query, { keys: ["id", "notes", "favorite"] });
   }
   return servers.sort(sortBy("domain", "createdAt"));
 }
@@ -26,6 +26,15 @@ export async function createServer(id) {
 export async function getServer(id) {
   let servers = await localforage.getItem("servers");
   let server = servers.find(server => server.id === id);
+  let instance = await getInstance(server.id); 
+  server.domain = instance.domain;
+  server.avatar = instance.thumbnail.url;
+  server.version = instance.version;
+  server.description = instance.description;
+  server.mau = instance.usage.users.active_month;
+  server.maxchars = instance.configuration.statuses.max_characters;
+  server.translation = instance.configuration.translation.enabled;
+
   return server ?? null;
 }
 
@@ -113,3 +122,11 @@ function groupBy(data, key) {
     return accumulator; 
   }, {}); // {} is the initial value of the accumulator
 };
+
+async function getInstance(domain) {
+  const axios = window.axios;
+  const response = await axios.get('https://' + domain.trim() + '/api/v2/instance');
+  
+  //console.log(response.data);
+  return response.data;
+}

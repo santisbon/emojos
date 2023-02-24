@@ -68,7 +68,7 @@ button:active {
 }
 #server h1 form button {
   box-shadow: none;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   font-weight: 400;
   padding: 0;
 }
@@ -256,10 +256,10 @@ i {
 }
 
 #server h1 {
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: 700;
   margin: 0;
-  line-height: 1.2;
+  /* line-height: 1.2; */
 }
 
 #server h1 + p {
@@ -286,12 +286,12 @@ i {
 }
 
 #server img {
-  width: 12rem;
-  height: 12rem;
+  width: 13rem;
+  height: 7rem;
   background: #c8c8c8;
   margin-right: 2rem;
   border-radius: 1.5rem;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 #server h1 ~ div {

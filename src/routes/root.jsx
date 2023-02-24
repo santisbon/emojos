@@ -12,7 +12,7 @@ and use a React Router `<Form>` to post the form data to the route `action`.
 export async function action({ request, params }) {
   const formData = await request.formData();
   const data = Object.fromEntries(formData);
-  const server = await createServer(data.id);
+  const server = await createServer(data.id.trim());
   document.getElementById("id").value = "";
   return redirect(`/servers/${server.id}`);
 }

@@ -33,27 +33,24 @@ export default function Server() {
 
       <div>
         <h1>
-          {server.id || server.domain ? (
+          {server.domain ? (
             <>
-              {server.id}
+              <a href={`https://${server.domain}`} target='_blank' rel='noopener noreferrer'>{server.domain}</a>
             </>
           ) : (
-            <i>No Name</i>
+            <i>No Domain</i>
           )}{" "}
           <Favorite server={server} />
         </h1>
 
-        {server.contact && (
-          <p>
-            <a
-              target="_blank"
-              href={server.contact.account.url}
-            >
-              {`Run by: @${server.contact.account.username}`}
-            </a>
-          </p>
-        )}
-
+        <p>
+          Version: {server.version}<br/>
+          Monthly active users: {server.mau}<br/>
+          Max characters per post: {server.maxchars}<br/>
+          Translation enabled: {server.translation.toString()}
+        </p>
+        {server.description && (<p>{server.description}</p>)}
+        
         {server.notes && <p>{server.notes}</p>}
 
         <div>
