@@ -13,8 +13,14 @@ export async function getServers(query) {
 
 export async function createServer(id) {
   if (!id) {
-    id = Math.random().toString(36).substring(2, 9);
+    //id = Math.random().toString(36).substring(2, 9);
+    throw new Error("Server id must be provided.");
   }
+
+  let instance = await getInstance(id);
+  if (!instance) {
+    throw new Error("Server is not valid.");
+  } 
 
   let server = { id, createdAt: Date.now() };
   let servers = await getServers();
@@ -33,17 +39,19 @@ export async function getServer(id) {
   let server = servers.find(server => server.id === id);
   
   if (server) {
-    let instance = await getInstance(server.id); 
-    server.domain = instance.domain;
-    server.avatar = instance.thumbnail.url;
-    server.version = instance.version;
-    server.description = instance.description;
-    server.mau = instance.usage.users.active_month;
-    server.maxchars = instance.configuration.statuses.max_characters;
-    server.translation = instance.configuration.translation.enabled;
+    let instance = await getInstance(server.id);
+    if (instance) {
+      server.domain = instance.domain;
+      server.avatar = instance.thumbnail.url;
+      server.version = instance.version;
+      server.description = instance.description;
+      server.mau = instance.usage.users.active_month;
+      server.maxchars = instance.configuration.statuses.max_characters;
+      server.translation = instance.configuration.translation.enabled;
 
-    let emojos = await getGroupedData('https://' + server.domain.trim() + "/api/v1/custom_emojis" , "category");
-    server.emojos = emojos;  
+      let emojos = await getGroupedData('https://' + server.domain.trim() + "/api/v1/custom_emojis" , "category");
+      server.emojos = emojos;
+    }
   }
   
   return server ?? null;
@@ -136,6 +144,12 @@ function groupBy(data, key) {
 
 async function getInstance(domain) {
   const axios = window.axios;
-  const response = await axios.get('https://' + domain.trim() + '/api/v2/instance');
-  return response.data;
+  let response;
+  try {
+    response = await axios.get('https://' + domain.trim() + '/api/v2/instance');
+  } catch (error) {
+    console.log(error);
+  }
+  
+  return response?.data ?? null;
 }

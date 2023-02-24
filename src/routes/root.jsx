@@ -12,9 +12,15 @@ and use a React Router `<Form>` to post the form data to the route `action`.
 export async function action({ request, params }) {
   const formData = await request.formData();
   const data = Object.fromEntries(formData);
-  const server = await createServer(data.id.trim());
-  document.getElementById("id").value = "";
-  return redirect(`/servers/${server.id}`);
+  try {
+    const server = await createServer(data.id.trim());
+    document.getElementById("id").value = "";
+    return redirect(`/servers/${server.id}`);
+  } catch (error) {
+    alert(error);
+    return null;
+  }
+  
 }
 
 /* 
@@ -108,6 +114,7 @@ export default function Root() {
               aria-label="Add server"
               placeholder="mastodon.social"
               size="15"
+              required
             /> &nbsp;
             <button type="submit">Add</button>
           </Form>
