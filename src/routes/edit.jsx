@@ -14,13 +14,15 @@ export default function EditServer() {
 
   return (
     <Form method="post" id="server-form">
-      {server.domain || server.title ? (
-        <>
-          {server.domain} <br /> {server.title}
-        </>
-      ) : (
-        <i>No Name</i>
-      )}
+      <p>
+        {server.id || server.title ? (
+          <>
+            {server.id}
+          </>
+        ) : (
+          <i>No Name</i>
+        )}
+      </p>
       <label>
         <span>Notes</span>
         <textarea
