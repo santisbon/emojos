@@ -17,6 +17,10 @@ export async function createServer(id) {
     throw new Error("Server id must be provided.");
   }
 
+  if (await getServer(id)) {
+    throw new Error("Server already added to list.");
+  }
+
   let instance = await getInstance(id);
   if (!instance) {
     throw new Error("Server is not valid.");
