@@ -15,7 +15,7 @@ export async function action({ request, params }) {
   try {
     const server = await createServer(data.serverId.trim());
     document.getElementById("serverId").value = "";
-    return redirect(`/servers/${server.id}`);
+    return redirect(`/${server.id}`); //TODO: change route
   } catch (error) {
     alert(error);
     return null;
@@ -170,7 +170,7 @@ export default function Root() {
               {servers.map((server) => (
                 <li key={server.id}>
                   <NavLink
-                    to={`servers/${server.id}`}
+                    to={`${server.id}`}
                     className={({ isActive, isPending }) =>
                       isActive
                         ? "active"

@@ -5,7 +5,7 @@ export async function action({ request, params }) {
   const formData = await request.formData();
   const updates = Object.fromEntries(formData);
   await updateServer(params.serverId, updates);
-  return redirect(`/servers/${params.serverId}`);
+  return redirect(`/${params.serverId}`);
 }
 
 export default function EditServer() {

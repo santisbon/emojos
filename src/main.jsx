@@ -31,19 +31,19 @@ const router = createBrowserRouter(
       <Route errorElement={<ErrorPage />}>
         <Route index element={<Index />} />
         <Route
-          path="servers/:serverId"
+          path=":serverId"
           element={<Server />}
           loader={serverLoader}
           action={serverAction}
         />
         <Route
-          path="servers/:serverId/edit"
+          path=":serverId/edit"
           element={<EditServer />}
           loader={serverLoader}
           action={editAction}
         />
         <Route
-          path="servers/:serverId/destroy"
+          path=":serverId/destroy"
           action={destroyAction}
         />
       </Route>
