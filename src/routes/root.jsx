@@ -1,6 +1,6 @@
 import { Outlet, NavLink, Link, useLoaderData, Form, redirect, useNavigation, useSubmit,} from "react-router-dom";
 import { useEffect } from "react";
-import { getServers, createServer } from "../servers";
+import { getServers, createServer, updateSourceMedia } from "../servers";
 
 
 /*
@@ -56,6 +56,17 @@ export default function Root() {
   // Synchronize input value with the URL Search Params so that clicking the back button will update the input
   useEffect(() => {
     document.getElementById("q").value = q;
+
+    const toggle = document.querySelector('dark-mode-toggle');
+    document.firstElementChild.setAttribute('data-theme', toggle.mode)
+
+    toggle.addEventListener('colorschemechange', () => {
+      document.firstElementChild.setAttribute(
+        'data-theme',
+        toggle.mode
+      )
+      updateSourceMedia(toggle.mode)
+    })
   }, [q]);
   
   /*  
@@ -100,12 +111,17 @@ export default function Root() {
   You could do anything you want though, like show a spinner or loading bar across the top.
 
   We need to tell the root route where we want it to render its child routes. We do that with `<Outlet>`.
+
+  The `<svg>` element can have a CSS `className=""` attribute as well or class in the CSS.
   */
 
   return (
     <>
       <div id="sidebar">
-        <h1>My server catalog</h1>
+        <dark-mode-toggle appearance="switch" light="Day&nbsp;&nbsp;&nbsp;&nbsp;" dark="Night"></dark-mode-toggle>
+        
+        <Link to="/"><h1>My servers</h1></Link>
+        
         <div>
           <Form method="post">
             <input 
@@ -113,13 +129,13 @@ export default function Root() {
               name="serverId"
               aria-label="Add server"
               placeholder="mastodon.social"
-              size="13"
+              size="15"
               required
             /> 
             <button type="submit">Add</button>
           </Form>  
         </div>
-        <div>
+        <div className="search">
           <Form id="search-form" role="search">
             <input
               id="q"
@@ -128,7 +144,7 @@ export default function Root() {
               placeholder="Search"
               type="search"
               name="q"
-              size="11"
+              size="13"
               defaultValue={q}
               onChange={(event) => {
                 const isFirstSearch = q == null;
@@ -181,7 +197,7 @@ export default function Root() {
             </p>
           )}
         </nav>
-        <div>
+        <div className="center">
           <picture>
             <source srcSet='/github-mark-white.svg' media='(prefers-color-scheme: dark)' />
             <img src='/github-mark.svg' className='footer-item' alt='GitHub' />

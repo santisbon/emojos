@@ -26,6 +26,11 @@
       "src": "logo-white.svg",
       "type": "image/svg+xml",
       "sizes": "20x20"
+    },
+    {
+      "src": "mastodon-mascot.svg",
+      "type": "image/svg+xml",
+      "sizes": "20x20"
     }
   ],
   "start_url": ".",
