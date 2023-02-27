@@ -25,7 +25,6 @@ body {
   height: 100%;
   margin: 0;
   line-height: 1.5;
-  /* color: #121212; */
 }
 
 a:link { text-decoration: none; }
@@ -120,7 +119,8 @@ form[action$="destroy"] button {
 }
 
 [data-theme='dark'] #sidebar {
-  background-color: #333;
+  background-color: #222;
+  border-right-color: #000;
 }
 
 #sidebar > * {
@@ -135,13 +135,6 @@ form[action$="destroy"] button {
   top: 1px;
 }
 
-/* #server a::before {
-  content: url("/mastodon-mascot.svg");
-  margin-right: 0.5rem;
-  position: relative;
-  top: 1px;
-} */
-
 #sidebar h1 {
   font-size: 1.2rem;
   font-weight: 500;
@@ -149,7 +142,6 @@ form[action$="destroy"] button {
   align-items: center;
   margin: 0;
   padding: 1rem 2rem;
-  /* border-top: 1px solid #e3e3e3; */
   order: 0;
   line-height: 1;
 }
@@ -165,8 +157,8 @@ form[action$="destroy"] button {
 }
 
 [data-theme='dark'] #sidebar > div {
-  border-top-color: #030303;
-  border-bottom-color: #030303;
+  border-top-color: #000;
+  border-bottom-color: #000;
 }
 
 #sidebar nav {
@@ -179,8 +171,8 @@ form[action$="destroy"] button {
 }
 
 [data-theme='dark'] #sidebar nav {
-  border-top-color: #030303;
-  border-bottom-color: #030303;
+  border-top-color: #000;
+  border-bottom-color: #000;
 }
 
 #sidebar > div form {
@@ -267,7 +259,16 @@ i {
   background: #e3e3e3;
 }
 
+[data-theme='dark'] #sidebar nav a:hover {
+  background: #111;
+}
+
 #sidebar nav a.active {
+  background: hsl(224, 98%, 58%);
+  color: white;
+}
+
+[data-theme='dark'] #sidebar nav a.active {
   background: hsl(224, 98%, 58%);
   color: white;
 }
