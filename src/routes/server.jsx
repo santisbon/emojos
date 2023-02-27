@@ -6,7 +6,7 @@ export async function loader({ params }) {
   if (!server) {
     throw new Response("", {
       status: 404,
-      statusText: `Server not found in your list. Please add ${params.serverId} with the "Add" button.`,
+      statusText: `Server not found.`,
     });
   }
   return server;

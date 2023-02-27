@@ -17,7 +17,9 @@ export async function createServer(id) {
     throw new Error("Server id must be provided.");
   }
 
-  if ((await getServer(id)).saved) {
+  let server = await getServer(id);
+
+  if (server?.saved) {
     throw new Error("Server already added to list.");
   }
 
@@ -26,7 +28,7 @@ export async function createServer(id) {
     throw new Error("Server is not valid.");
   } 
 
-  let server = { id, createdAt: Date.now() };
+  server = { id, createdAt: Date.now() };
   let servers = await getServers();
   servers.unshift(server);
   await set(servers);
@@ -67,6 +69,8 @@ export async function getServer(id) {
 
     let emojos = await getGroupedData('https://' + server.domain.trim() + "/api/v1/custom_emojis" , "category");
     server.emojos = emojos;
+  } else {
+    server = null;
   }
   
   return server ?? null;
