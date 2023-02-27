@@ -6,6 +6,7 @@ import Root, { loader as rootLoader, action as rootAction, } from "./routes/root
 import Index from "./routes/index";
 import EditServer, { action as editAction, } from "./routes/edit";
 import { action as destroyAction } from "./routes/destroy";
+import { action as createAction } from "./routes/create";
 import ErrorPage from "./error-page";
 import Server, { loader as serverLoader, action as serverAction, } from "./routes/server";
 
@@ -45,6 +46,10 @@ const router = createBrowserRouter(
         <Route
           path=":serverId/destroy"
           action={destroyAction}
+        />
+        <Route
+          path=":serverId/create"
+          action={createAction}
         />
       </Route>
     </Route>

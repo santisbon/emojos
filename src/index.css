@@ -120,7 +120,7 @@ form[action$="destroy"] button {
 }
 
 [data-theme='dark'] #sidebar {
-  background-color: #f7f7f7;
+  background-color: #333;
 }
 
 #sidebar > * {
@@ -160,11 +160,27 @@ form[action$="destroy"] button {
   gap: 0.5rem;
   padding-top: 1rem;
   padding-bottom: 1rem;
+  border-top-color: #e3e3e3;
+  border-bottom-color: #e3e3e3;
 }
 
-#sidebar >  div {
-  border-bottom-color: #e3e3e3;
+[data-theme='dark'] #sidebar > div {
+  border-top-color: #030303;
+  border-bottom-color: #030303;
+}
+
+#sidebar nav {
+  flex: 1;
+  overflow: auto;
+  padding-top: 1rem;
+  border-bottom: 1px solid;
   border-top-color: #e3e3e3;
+  border-bottom-color: #e3e3e3;
+}
+
+[data-theme='dark'] #sidebar nav {
+  border-top-color: #030303;
+  border-bottom-color: #030303;
 }
 
 #sidebar > div form {
@@ -206,15 +222,6 @@ form[action$="destroy"] button {
   to {
     transform: rotate(360deg);
   }
-}
-
-#sidebar nav {
-  flex: 1;
-  overflow: auto;
-  padding-top: 1rem;
-  border-bottom: 1px solid;
-  border-bottom-color: #e3e3e3;
-  border-top-color: #e3e3e3;
 }
 
 #sidebar nav a span {
@@ -398,6 +405,10 @@ i {
 
 [data-theme='dark'] a {
   color: #809fff;
+}
+
+[data-theme='dark'] #server h1 form button {
+  background-color: #333;
 }
 
 .grid-container {

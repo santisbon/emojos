@@ -17,7 +17,7 @@ export async function createServer(id) {
     throw new Error("Server id must be provided.");
   }
 
-  if (await getServer(id)) {
+  if ((await getServer(id)).saved) {
     throw new Error("Server already added to list.");
   }
 
@@ -43,23 +43,30 @@ export async function getServer(id) {
   let server = servers.find(server => server.id === id);
   
   if (server) {
-    let instance = await getInstance(server.id);
-    let instancev1 = await getInstance(server.id, "v1");
-    if (instance && instancev1) {
-      server.domain = instance.domain;
-      server.avatar = instance.thumbnail.url;
-      server.version = instance.version;
-      server.description = instance.description;
-      server.mau = instance.usage.users.active_month;
-      server.maxchars = instance.configuration.statuses.max_characters;
-      server.translation = instance.configuration.translation.enabled;
-      server.registrationsEnabled = instance.registrations.enabled;
-      server.approvalRequired = instance.registrations.approval_required;
-      server.users = instancev1.stats.user_count;
-
-      let emojos = await getGroupedData('https://' + server.domain.trim() + "/api/v1/custom_emojis" , "category");
-      server.emojos = emojos;
+    server.saved = true;
+  } else {
+    server = {
+      id: id,
+      saved: false
     }
+  }
+
+  let instance = await getInstance(server.id);
+  let instancev1 = await getInstance(server.id, "v1");
+  if (instance && instancev1) {
+    server.domain = instance.domain;
+    server.avatar = instance.thumbnail.url;
+    server.version = instance.version;
+    server.description = instance.description;
+    server.mau = instance.usage.users.active_month;
+    server.maxchars = instance.configuration.statuses.max_characters;
+    server.translation = instance.configuration.translation.enabled;
+    server.registrationsEnabled = instance.registrations.enabled;
+    server.approvalRequired = instance.registrations.approval_required;
+    server.users = instancev1.stats.user_count;
+
+    let emojos = await getGroupedData('https://' + server.domain.trim() + "/api/v1/custom_emojis" , "category");
+    server.emojos = emojos;
   }
   
   return server ?? null;

@@ -15,12 +15,11 @@ export async function action({ request, params }) {
   try {
     const server = await createServer(data.serverId.trim());
     document.getElementById("serverId").value = "";
-    return redirect(`/${server.id}`); //TODO: change route
+    return redirect(`/${server.id}`);
   } catch (error) {
     alert(error);
     return null;
   }
-  
 }
 
 /* 

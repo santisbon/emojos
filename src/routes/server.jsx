@@ -40,7 +40,7 @@ export default function Server() {
             ) : (
               <i>No Domain</i>
             )}{" "}
-            <Favorite server={server} />
+            {server.saved ? (<Favorite server={server} />) : ""}
           </h1>
 
           <p>
@@ -52,29 +52,41 @@ export default function Server() {
             Character limit: {new Intl.NumberFormat().format(server.maxchars)}<br/>
             Translation: {server.translation ? "Yes": "No"}
           </p>
-          {server.description && (<p>{server.description}</p>)}
-          
+          {server.description && (<p>{server.description}</p>)}          
           {server.notes && <p>{server.notes}</p>}
-
           <div>
-            <Form action="edit">
-              <button type="submit">Edit</button>
-            </Form>
-            <Form
-              method="post"
-              action="destroy"
-              onSubmit={(event) => {
-                if (
-                  !confirm(
-                    "Please confirm you want to delete this record."
-                  )
-                ) {
-                  event.preventDefault();
-                }
-              }}
-            >
-              <button type="submit">Delete</button>
-            </Form>
+            {server.saved ? (
+              <>
+                <Form action="edit">
+                  <button type="submit">Edit</button>
+                </Form>
+                <Form
+                  method="post"
+                  action="destroy"
+                  onSubmit={(event) => {
+                    if (
+                      !confirm(
+                        "Please confirm you want to delete this record."
+                      )
+                    ) {
+                      event.preventDefault();
+                    }
+                  }}
+                >
+                  <button type="submit">Delete</button>
+                </Form>
+              </>
+            ) : (
+              <>
+                <Form
+                  method="post"
+                  action="create"
+                >
+                  <button type="submit">Add</button>
+                </Form>
+              </>
+            )
+            }
           </div>
         </div>
       </div>
