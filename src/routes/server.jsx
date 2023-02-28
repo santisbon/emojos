@@ -17,6 +17,7 @@ export async function action({ request, params }) {
   let formData = await request.formData();
   return updateServer(params.serverId, {
     favorite: formData.get("favorite") === "true",
+    favoriteSearch: formData.get("favorite") === "true" ? "favorite" : null
   });
 }
 

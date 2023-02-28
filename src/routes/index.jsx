@@ -6,8 +6,8 @@ export default function Index() {
         and translation.
       </p>
       <p className="zero-state">
-        Searching your list looks in the server name and your personal notes. 
-        Tip: You can search for your favorites by typing "true".
+        Searching your list looks in the server name and any personal notes you add to it. 
+        Tip: You can search for your favorites by typing "favorite".
       </p>
       <p>
         <a href='https://instances.social/list/advanced#lang=&allowed=&prohibited=&min-users=20000&max-users=' 

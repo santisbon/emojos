@@ -6,7 +6,7 @@ export async function getServers(query) {
   let servers = await localforage.getItem("servers");
   if (!servers) servers = [];
   if (query) {
-    servers = matchSorter(servers, query, { keys: ["id", "notes", "favorite"] });
+    servers = matchSorter(servers, query, { keys: ["id", "notes", "favoriteSearch"] });
   }
   return servers.sort(sortBy("id", "createdAt"));
 }
