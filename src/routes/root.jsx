@@ -217,7 +217,7 @@ export default function Root() {
           navigation.state === "loading" ? "loading" : ""
         }
       >
-        <button id="openSidebar" className="openbtn" onClick={openNav}>☰ Open Sidebar</button>
+        <button type="button" id="openSidebar" className="openbtn" onClick={openNav}>☰ Open Sidebar</button>
         <p></p>
         <Outlet />
       </div>

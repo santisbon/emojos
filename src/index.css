@@ -402,7 +402,7 @@ i {
 }
 
 #server-form p:last-child button[type="button"] {
-  color: inherit;
+  color: #000;
 }
 
 .zero-state {
