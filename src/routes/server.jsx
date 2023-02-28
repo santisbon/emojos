@@ -53,7 +53,7 @@ export default function Server() {
             Translation: {server.translation ? "Yes": "No"}
           </p>
           {server.description && (<p>{server.description}</p>)}          
-          {server.notes && <p>{server.notes}</p>}
+          {server.notes && <p>My notes: {server.notes}</p>}
           <div>
             {server.saved ? (
               <>
