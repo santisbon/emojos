@@ -13,7 +13,7 @@ export default function Index() {
       </ul>
       <label className="zero-state">Tip:</label>
       <ul className="zero-state">
-      <li>You can search for your favorites by typing "true".</li>
+        <li>You can search for your favorites by typing "true".</li>
       </ul>
       <p>
         <a href='https://instances.social/list/advanced#lang=&allowed=&prohibited=&min-users=20000&max-users=' 
