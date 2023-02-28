@@ -1,7 +1,7 @@
 import { Outlet, NavLink, Link, useLoaderData, Form, redirect, useNavigation, useSubmit,} from "react-router-dom";
 import { useEffect } from "react";
 import { getServers, createServer, updateSourceMedia } from "../servers";
-
+import { closeNav, openNav } from "../nav";
 
 /*
 Creating data
@@ -117,6 +117,7 @@ export default function Root() {
   return (
     <>
       <div id="sidebar">
+        <button className="closebtn" onClick={closeNav}>×</button>
         <dark-mode-toggle appearance="switch" light="Day&nbsp;&nbsp;&nbsp;&nbsp;" dark="Night"></dark-mode-toggle>
         
         <Link to="/"><h1>My servers</h1></Link>
@@ -216,6 +217,8 @@ export default function Root() {
           navigation.state === "loading" ? "loading" : ""
         }
       >
+        <button id="openSidebar" className="openbtn" onClick={openNav}>☰ Open Sidebar</button>
+        <p></p>
         <Outlet />
       </div>
     </>
