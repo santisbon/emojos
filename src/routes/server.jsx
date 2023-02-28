@@ -1,5 +1,6 @@
 import { Form, useLoaderData, useFetcher, } from "react-router-dom";
 import { getServer, updateServer, copyEmojo } from "../servers";
+import { closeNav, openNav } from "../nav";
 
 export async function loader({ params }) {
   const server = await getServer(params.serverId);
@@ -24,12 +25,25 @@ export default function Server() {
 
   return (
     <>
-      <div id="server-avatar">
-        <img
-          key={server.avatar}
-          src={server.avatar || null}
-        />
-      </div>
+      {
+        server.saved ? (
+        <>
+          <div id="server-avatar">
+            <img
+              key={server.avatar}
+              src={server.avatar || null}
+            />
+          </div>
+        </>) : (
+        <>
+          <div id="server-avatar" onLoad={closeNav}>
+            <img
+              key={server.avatar}
+              src={server.avatar || null}
+            />
+          </div>
+        </>)
+      }
       <div id="server">
         <div>
           <h1>
@@ -82,7 +96,7 @@ export default function Server() {
                   method="post"
                   action="create"
                 >
-                  <button type="submit">Add</button>
+                  <button type="submit" onClick={openNav}>Add</button>
                 </Form>
               </>
             )
