@@ -354,8 +354,8 @@ i {
 }
 
 #server-avatar img {
-  width: 13rem;
-  height: 7rem;
+  width: 240px;
+  height: 126px;
   background: #c8c8c8;
   margin-right: 2rem;
   border-radius: 1.5rem;
