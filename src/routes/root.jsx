@@ -199,14 +199,14 @@ export default function Root() {
         </nav>
         <div className="center">
           <picture>
-            <source srcSet='/github-mark-white.svg' media='(prefers-color-scheme: dark)' />
-            <img src='/github-mark.svg' className='footer-item' alt='GitHub' />
+            <source srcSet='/img/github-mark-white.svg' media='(prefers-color-scheme: dark)' />
+            <img src='/img/github-mark.svg' className='footer-item' alt='GitHub' />
           </picture>
           <a href='https://github.com/santisbon/emojos' target='_blank' rel='noopener noreferrer'>GitHub</a> 
           |
           <picture>
-            <source srcSet='/logo-white.svg' media='(prefers-color-scheme: dark)' />
-            <img src='/logo-black.svg' className='footer-item' alt='Mastodon' />
+            <source srcSet='/img/logo-white.svg' media='(prefers-color-scheme: dark)' />
+            <img src='/img/logo-black.svg' className='footer-item' alt='Mastodon' />
           </picture>
           <a rel="me" href="https://universeodon.com/@santisbon">Mastodon</a>
         </div>
