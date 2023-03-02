@@ -142,7 +142,7 @@ export default function Root() {
               className={searching ? "loading" : ""}
               aria-label="Search servers"
               placeholder="Search"
-              type="search"
+              type="text"
               name="q"
               size="13"
               defaultValue={q}
