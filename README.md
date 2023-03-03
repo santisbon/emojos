@@ -1,14 +1,15 @@
-# Custom emojis from Mastodon servers
+# Custom emojis (emojos) from Mastodon servers
   
 ## Features
 
-- Displays the custom emojis from any Mastodon server, grouped by category.
-- Support for dark mode. It respects your device's preference for light or dark mode but allows you to change it for this site.
+- Keep a list of Mastodon servers to view their custom emojis and other features like character limit and translation.
+- Searching your list looks in the server name and any personal notes you add to it. Tip: You can search for your favorites by typing "favorite".
 - Click/tap to copy.
+- Light and dark themes. Follows your system preferences but allows manual override.
 
 ## 📸
 
-![](https://i.imgur.com/sOr6ny0.png)
+![Screenshot](https://i.imgur.com/UNum05Y.png)
 
 ## Test locally
 ```shell
