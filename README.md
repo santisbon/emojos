@@ -24,11 +24,22 @@ If you want to run it on a different port:
 npm run dev -- --port 8000
 ```
 
-> This React app was bootstrapped with Vite as the bundler and dev server. To create a new app in the same way, install Node.js and run:
-> ```shell
-> npm create vite@latest name-of-your-project -- --template react
-> # follow prompts
-> cd <your new project directory>
-> npm install <your dependencies>
-> npm run dev
-> ```
+<details> 
+<summary>Development details</summary>
+
+This app was bootstrapped with Vite as the bundler and dev server and the React template:
+```shell
+npm create vite@latest name-of-your-project -- --template react
+# follow prompts
+cd <your new project directory>
+npm install <your dependencies>
+npm run dev
+```
+
+The Service Worker was generated with Workbox. To set up the CLI:
+```shell
+npm install workbox-cli --save-dev
+npx workbox wizard
+```
+To use it follow the [CLI help text](https://raw.githubusercontent.com/GoogleChrome/workbox/main/packages/workbox-cli/src/lib/help-text.js) to run either `generateSW` or `injectManifest`.
+</details>  
