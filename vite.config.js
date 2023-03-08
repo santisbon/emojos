@@ -18,15 +18,22 @@ export default defineConfig({
       manifest: {
         id: '/',
         start_url: '/',
-        name: 'Get Emojos',
+        name: 'Emojos',
         short_name: 'Emojos',
         icons: [
           {
-            "src": "img/icon1024.png",
-            "type": "image/png",
-            "sizes": "1024x1024"
+            src: '/img/android-chrome-192x192.png',
+            sizes: '192x192',
+            type: 'image/png'
+          },
+          {
+            src: '/img/android-chrome-512x512.png',
+            sizes: '512x512',
+            type: 'image/png'
           }
         ],
+        theme_color: '#ffffff',
+        background_color: '#ffffff',
         display: 'standalone'
       }, 
     })
