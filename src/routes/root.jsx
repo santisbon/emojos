@@ -208,7 +208,7 @@ export default function Root() {
             <source srcSet='/img/logo-white.svg' media='(prefers-color-scheme: dark)' />
             <img src='/img/logo-black.svg' className='footer-item' alt='Mastodon' />
           </picture>
-          <a rel="me" href="https://universeodon.com/@santisbon">Mastodon</a>
+          <a href="https://universeodon.com/@santisbon" target='_blank' rel='noopener noreferrer'>Mastodon</a>
         </div>
       </div>
       <div 
