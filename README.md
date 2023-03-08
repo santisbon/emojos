@@ -6,10 +6,23 @@
 - Searching your list looks in the server name and any personal notes you add to it. Tip: You can search for your favorites by typing "favorite".
 - Click/tap to copy.
 - Light and dark themes. Follows your system preferences but allows manual override.
+- Install as an app on desktop and mobile for [browsers that support it](https://web.dev/learn/pwa/progressive-web-apps/#compatibility).
 
 ## 📸
 
-![Screenshot](https://i.imgur.com/UNum05Y.png)
+### Light/dark themes
+![Screenshot](https://i.imgur.com/UNum05Y.png)  
+
+### Installed as an OS app
+
+<p>
+  macOS <br>
+  <img src="https://i.imgur.com/n6POC5o.png"  width="70%">
+</p>
+<p>
+  iOS <br>
+  <img src="https://i.imgur.com/t879fE0.png"  width="30%">
+</p>
 
 ## Test locally
 ```shell
