@@ -36,10 +36,35 @@ npm install <your dependencies>
 npm run dev
 ```
 
-The Service Worker was generated with Workbox. To set up the CLI:
+## Service Worker
+
+### With [Vite Plugin PWA](https://vite-pwa-org.netlify.app/guide/)
+
+The plugin was used to: 
+- Generate the manifest.
+- Configure the manifest with a link in the `head` of the app entry point.
+- Generate a service worker.
+- Generate a script to register the sw.
+See [here](https://github.com/vite-pwa/vite-plugin-pwa/blob/main/src/types.ts) for details on the plugin options.  
+
+Look into:  
+- `workbox: Partial<GenerateSWOptions>`. The `GenerateSWOptions` schema is imported from [`workbox-build`](https://github.com/GoogleChrome/workbox/blob/v6/packages/workbox-build/src/schema/GenerateSWOptions.json).
+
+To install the plugin:
 ```shell
-npm install workbox-cli --save-dev
-npx workbox wizard
+npm i vite-plugin-pwa -D
 ```
-To use it follow the [CLI help text](https://raw.githubusercontent.com/GoogleChrome/workbox/main/packages/workbox-cli/src/lib/help-text.js) to run either `generateSW` or `injectManifest`.
+Building the project generates these in the `outDir` (by default `dist`):
+```shell
+sw.js
+workbox-<hash>.js
+```
+and these in `dist` (always):
+```shell
+index.html
+manifest.webmanifest
+registerSW.js # if you choose to generate it
+```
+`registerSW.js` references `<buildBase>sw.js` (if you choose to generate it)  
+`index.html` references `<buildBase>manifest.webmanifest` and `<buildBase>registerSW.js` 
 </details>  
