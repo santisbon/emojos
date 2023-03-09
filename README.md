@@ -52,9 +52,7 @@ npm run dev
 ```
 Icons created with [Favicon Generator](https://realfavicongenerator.net).  
 
-The service worker was generated with [Vite Plugin PWA](https://vite-pwa-org.netlify.app/guide/).  
-
-The plugin was used to: 
+The service worker was generated with [Vite Plugin PWA](https://vite-pwa-org.netlify.app/guide/). It was used to: 
 - Generate the manifest.
 - Configure the manifest with a link in the `head` of the app entry point.
 - Generate a service worker.
@@ -69,6 +67,10 @@ npm i vite-plugin-pwa -D
 ### Recommended deployment
 The current deployment has these characteristics:
 - Hosted as a secure static site on object storage (S3). 
-- Served through a CDN (CloudFront with a CloudFront Function to rewrite URIs that are meant to be handled by client-side routing).
+- Served through a CDN (CloudFront). 
+  - A CloudFront Function to rewrite URIs that are meant to be handled by client-side routing.
+  - A Content Security Policy for the response headers from the distribution.
+  - Using edge locations in North America and Europe.
+- Users routed by Route 53 with a custom domain.
 - Using Infrastructure as Code (CloudFormation).
 </details>  
