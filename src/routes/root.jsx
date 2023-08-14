@@ -205,10 +205,10 @@ export default function Root() {
           <a href='https://github.com/santisbon/emojos' target='_blank' rel='noopener noreferrer'>GitHub</a> 
           |
           <picture>
-            <source srcSet='/img/logo-white.svg' media='(prefers-color-scheme: dark)' />
-            <img src='/img/logo-black.svg' className='footer-item' alt='Mastodon' />
+            <source srcSet='/img/Fediverse_logo_proposal.svg' media='(prefers-color-scheme: dark)' />
+            <img src='/img/Fediverse_logo_proposal_(mono_version).svg' className='footer-item' alt='Mastodon' />
           </picture>
-          <a href="https://universeodon.com/@santisbon" target='_blank' rel='noopener noreferrer'>Mastodon</a>
+          <a href="https://firefish.social/@santisbon" target='_blank' rel='noopener noreferrer'>Fediverse</a>
         </div>
       </div>
       <div 
