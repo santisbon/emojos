@@ -1,8 +1,8 @@
-# Custom emojis (emojos) from Mastodon servers
+# Custom emojis from Fediverse servers like Mastodon and Firefish
   
 ## Features
 
-- Keep a list of Mastodon servers to view their custom emojis and other features like character limit and translation.
+- Keep a list of Fediverse servers to view their custom emojis and other features like character limit and translation.
 - Searching your list looks in the server name and any personal notes you add to it. Tip: You can search for your favorites by typing "favorite".
 - Click/tap to copy emojos.
 - Light and dark themes. Follows your system preferences but allows manual override.
