@@ -454,6 +454,11 @@ i {
   vertical-align: middle;
   padding-bottom: 2px;
   margin-right: 0.5rem;
+  transition: transform .2s; /* Animation */
+}
+
+.grid-item:hover {
+  transform: scale(2.5); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
 }
 
 .footer-item {
