@@ -27,7 +27,22 @@ export default function Server() {
   return (
     <>
       {
-        server.saved ? (
+        !server.saved ? (
+          <>
+            <div id="server-avatar" onLoad={closeNav}>
+              <img hidden
+                  key={null}
+                  src="/img/logo-white.svg"
+              />
+            </div>
+          </>
+        ):(
+          <>
+          </>
+        )
+      }
+      {
+        server.version ? (
         <>
           <div id="server-avatar">
             <img
@@ -37,12 +52,6 @@ export default function Server() {
           </div>
         </>) : (
         <>
-          <div id="server-avatar" onLoad={closeNav}>
-            <img
-              key={server.avatar}
-              src={server.avatar || null}
-            />
-          </div>
         </>)
       }
       <div id="server">
