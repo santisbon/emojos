@@ -23,11 +23,6 @@ export async function createServer(id) {
     throw new Error("Server already added to list.");
   }
 
-  let instance = await getInstance(id);
-  if (!instance) {
-    throw new Error("Server is not valid.");
-  } 
-
   server = { id, createdAt: Date.now() };
   let servers = await getServers();
   servers.unshift(server);
@@ -53,24 +48,33 @@ export async function getServer(id) {
     }
   }
 
-  let instance = await getInstance(server.id);
-  let instancev1 = await getInstance(server.id, "v1");
-  if (instance && instancev1) {
-    server.domain = instance.domain;
-    server.avatar = instance.thumbnail.url;
-    server.version = instance.version;
-    server.description = instance.description;
-    server.mau = instance.usage.users.active_month;
-    server.maxchars = instance.configuration.statuses.max_characters;
-    server.translation = instance.configuration.translation.enabled;
-    server.registrationsEnabled = instance.registrations.enabled;
-    server.approvalRequired = instance.registrations.approval_required;
-    server.users = instancev1.stats.user_count;
+  server.domain = id;
 
-    let emojos = await getGroupedData('https://' + server.domain.trim() + "/api/v1/custom_emojis" , "category");
+  // Mastodon instances have server info without credentials. Firefish doesn't.
+  let instance = await getInstance(server.id);
+  
+  server.avatar = instance?.thumbnail.url ?? null;
+  server.version = instance?.version ?? null;
+  server.description = instance?.description ?? null;
+  server.mau = instance?.usage.users.active_month ?? null;
+  server.maxchars = instance?.configuration.statuses.max_characters ?? null;
+  server.translation = instance?.configuration.translation.enabled ?? null;
+  server.registrationsEnabled = instance?.registrations.enabled ?? null;
+  server.approvalRequired = instance?.registrations.approval_required ?? null;
+  server.users = null;
+  
+  if (instance) {
+    let instancev1 = await getInstance(server.id, "v1");
+    server.users = instancev1.stats.user_count
+  }
+
+  let emojos; 
+  try {
+    emojos = await getGroupedData('https://' + server.id + "/api/v1/custom_emojis" , "category");
     server.emojos = emojos;
-  } else {
-    server = null;
+  } catch (error) {
+    console.error(error);
+    throw new Error("Server is not valid.");
   }
   
   return server ?? null;
@@ -169,6 +173,6 @@ async function getInstance(domain, version = "v2") {
   } catch (error) {
     console.error(error);
   }
-  
+
   return response?.data ?? null;
 }

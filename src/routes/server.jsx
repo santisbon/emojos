@@ -57,16 +57,25 @@ export default function Server() {
             )}{" "}
             {server.saved ? (<Favorite server={server} />) : ""}
           </h1>
+          
+          {
+            server.version ? (
+              <>
+                <p>
+                  Version: {server.version}<br/>
+                  Users: {new Intl.NumberFormat().format(server.users)}<br />
+                  Monthly active users: {new Intl.NumberFormat().format(server.mau)}<br/>
+                  Registrations open: {server.registrationsEnabled ? "Yes" : "No"}<br/>
+                  Approval required: {server.approvalRequired ? "Yes" : "No"} <br />
+                  Character limit: {new Intl.NumberFormat().format(server.maxchars)}<br/>
+                  Translation: {server.translation ? "Yes": "No"}
+                </p>
+              </>
+            ) : (
+              <></>
+            )
+          }
 
-          <p>
-            Version: {server.version}<br/>
-            Users: {new Intl.NumberFormat().format(server.users)}<br />
-            Monthly active users: {new Intl.NumberFormat().format(server.mau)}<br/>
-            Registrations open: {server.registrationsEnabled ? "Yes" : "No"}<br/>
-            Approval required: {server.approvalRequired ? "Yes" : "No"} <br />
-            Character limit: {new Intl.NumberFormat().format(server.maxchars)}<br/>
-            Translation: {server.translation ? "Yes": "No"}
-          </p>
           {server.description && (<p>{server.description}</p>)}          
           {server.notes && <p>My notes: {server.notes}</p>}
           <div>
