@@ -210,6 +210,28 @@ export default function Root() {
           </picture>
           <a href="https://firefish.social/@santisbon" target='_blank' rel='noopener noreferrer'>Fediverse</a>
         </div>
+        <p>
+          <table className="center">
+            <tr>
+            Donate<br></br>
+            </tr>
+            <tr>
+              <a href="https://account.venmo.com/u/Armando-Santisbon" target='_blank' rel='noopener noreferrer'> 
+                <picture>
+                  <img src='/img/venmo.svg' className='footer-logo' alt='venmo'></img>
+                </picture>
+              </a>
+            </tr>
+            <tr>
+            <a href="https://enroll.zellepay.com/qr-codes?data=ewogICJhY3Rpb24iIDogInBheW1lbnQiLAogICJuYW1lIiA6ICJBUk1BTkRPIiwKICAidG9rZW4iIDogImFzYW50aXNib25AbWUuY29tIgp9" target='_blank' rel='noopener noreferrer'> 
+              <picture>
+                <source srcSet='/img/zelle-white.png' media='(prefers-color-scheme: dark)' />
+                <img src='/img/zelle.svg' className='footer-logo2' alt='zelle'></img>
+              </picture>
+            </a>
+            </tr>
+          </table>
+        </p>
       </div>
       <div 
         id="detail"
