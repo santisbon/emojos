@@ -213,22 +213,14 @@ export default function Root() {
         <p>
           <table className="center">
             <tr>
-            Donate<br></br>
-            </tr>
-            <tr>
-              <a href="https://account.venmo.com/u/Armando-Santisbon" target='_blank' rel='noopener noreferrer'> 
-                <picture>
-                  <img src='/img/venmo.svg' className='footer-logo' alt='venmo'></img>
-                </picture>
+              <a href='https://ko-fi.com/E1E2OOCOY' target='_blank' rel='noopener noreferrer'>
+                <img height='36' className='ko-fi-logo' src='https://storage.ko-fi.com/cdn/kofi2.png?v=3' border='0' alt='Buy Me a Coffee at ko-fi.com' />
               </a>
             </tr>
             <tr>
-            <a href="https://enroll.zellepay.com/qr-codes?data=ewogICJhY3Rpb24iIDogInBheW1lbnQiLAogICJuYW1lIiA6ICJBUk1BTkRPIiwKICAidG9rZW4iIDogImFzYW50aXNib25AbWUuY29tIgp9" target='_blank' rel='noopener noreferrer'> 
-              <picture>
-                <source srcSet='/img/zelle-white.png' media='(prefers-color-scheme: dark)' />
-                <img src='/img/zelle.svg' className='footer-logo2' alt='zelle'></img>
-              </picture>
-            </a>
+              <a href="https://account.venmo.com/u/Armando-Santisbon" target='_blank' rel='noopener noreferrer'> 
+                  <img src='/img/venmo.svg' className='venmo-logo' alt='venmo'></img>
+              </a>
             </tr>
           </table>
         </p>
