@@ -96,6 +96,9 @@ export async function getServer(id) {
     }
   } 
 
+  let maupct = server.mau/server.users;
+  server.maupct = Number(maupct).toLocaleString(new Intl.NumberFormat(), {style: 'percent', minimumFractionDigits:2});
+  
   // These implement the Mastodon custom_emojis API:
   // Mastodon, Firefish, Pleroma, Friendica, Takahē, Fedibird.
 

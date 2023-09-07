@@ -73,7 +73,7 @@ export default function Server() {
                 <p>
                   Version: {server.version}<br/>
                   Users: {new Intl.NumberFormat().format(server.users)}<br />
-                  Monthly active users: {new Intl.NumberFormat().format(server.mau)}<br/>
+                  Monthly active users: {new Intl.NumberFormat().format(server.mau)} ({server.maupct})<br/>
                   Registrations open: {server.registrationsEnabled ? "Yes" : "No"}<br/>
                   Approval required: {server.approvalRequired ? "Yes" : "No"} <br />
                   Character limit: {new Intl.NumberFormat().format(server.maxchars)}<br/>
