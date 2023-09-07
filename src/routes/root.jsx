@@ -208,7 +208,7 @@ export default function Root() {
             <source srcSet='/img/Fediverse_logo_proposal.svg' media='(prefers-color-scheme: dark)' />
             <img src='/img/Fediverse_logo_proposal_(mono_version).svg' className='footer-item' alt='Fediverse' />
           </picture>
-          <a href="https://firefish.social/@santisbon" target='_blank' rel='noopener noreferrer'>Fediverse</a>
+          <a href="https://fedia.social/@santisbon" target='_blank' rel='noopener noreferrer'>Fediverse</a>
         </div>
         <div><Link to="/" className="center" onClick={closeNav}>Donate</Link></div>
       </div>
