@@ -1,4 +1,6 @@
-# Custom emojis from Fediverse servers like Mastodon and Firefish
+# Custom emojis from Fediverse servers 
+
+Supports Mastodon, Firefish, Pleroma, Friendica, Takahē, Fedibird.
   
 ## Features
 
@@ -9,22 +11,6 @@
 - Install as an app on desktop and mobile for [browsers that support it](https://web.dev/learn/pwa/progressive-web-apps/#compatibility).
 - Shareable URLs.
 
-## 📸
-
-### Light/dark themes
-![Screenshot](https://i.imgur.com/UNum05Y.png)  
-
-### Installed as an OS app
-
-<p>
-  macOS <br>
-  <img src="https://i.imgur.com/n6POC5o.png"  width="70%">
-</p>
-<p>
-  iOS <br>
-  <img src="https://i.imgur.com/t879fE0.png"  width="30%">
-</p>
-
 ## Test locally
 
 Node 20 seems to break Babel which breaks React so if you run into that issue you should use Node 18 and add it to your PATH e.g.
@@ -33,6 +19,7 @@ brew install node@18
 echo 'export PATH="/opt/homebrew/opt/node@18/bin:$PATH"' >> ~/.zshrc
 ```
 
+Run the app
 ```shell
 npm install
 npm run dev # start dev server
@@ -45,10 +32,11 @@ If you want to run it on a different port:
 npm run dev -- --port 8000
 ```
 
-## Development details
+## Details
 <details> 
 <summary>See more</summary>
 
+## Development
 The app was bootstrapped with [Vite](https://vitejs.dev) as the bundler and dev server and the React template:
 ```shell
 npm create vite@latest name-of-your-project -- --template react
@@ -71,7 +59,7 @@ To install the plugin:
 npm i vite-plugin-pwa -D
 ```
 
-### Recommended deployment
+## Recommended deployment
 The current deployment has these characteristics:
 - Hosted as a secure static site on object storage (S3). 
 - Served through a CDN (CloudFront). 
