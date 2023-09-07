@@ -50,30 +50,65 @@ export async function getServer(id) {
 
   server.domain = id;
 
-  // Mastodon instances have server info without credentials. Firefish doesn't.
   let instance = await getInstance(server.id);
   
-  server.avatar = instance?.thumbnail.url ?? null;
+  server.avatar = instance?.thumbnail?.url ?? null;
   server.version = instance?.version ?? null;
   server.description = instance?.description ?? null;
-  server.mau = instance?.usage.users.active_month ?? null;
-  server.maxchars = instance?.configuration.statuses.max_characters ?? null;
-  server.translation = instance?.configuration.translation.enabled ?? null;
-  server.registrationsEnabled = instance?.registrations.enabled ?? null;
-  server.approvalRequired = instance?.registrations.approval_required ?? null;
+  server.mau = instance?.usage?.users?.active_month ?? null;
+  server.maxchars = instance?.configuration?.statuses?.max_characters ?? null;
+  server.translation = instance?.configuration?.translation?.enabled ?? null;
+  server.registrationsEnabled = instance?.registrations?.enabled ?? null;
+  server.approvalRequired = instance?.registrations?.approval_required ?? null;
   server.users = null;
   
   if (instance) {
+    // Mastodon has an instance API. Firefish doesn't, at least not a working one at the moment.
     let instancev1 = await getInstance(server.id, "v1");
-    server.users = instancev1.stats.user_count
+    server.users = instancev1?.stats?.user_count
   }
+  else {
+    // Mastodon doesn't allow cross-origin on the `nodeinfo` API (bug) so we only use it on servers without an instance API
+    let nodeInfo = await getNodeInfo(server.id);
 
+    server.version = nodeInfo?.software?.version;
+    server.description = nodeInfo?.metadata?.nodeDescription;
+    server.mau = nodeInfo?.usage?.users?.activeMonth;
+    server.maxchars = nodeInfo?.metadata?.maxNoteTextLength;
+    server.translation = null;
+    server.registrationsEnabled = nodeInfo?.openRegistrations;
+    server.approvalRequired = null;
+    server.users = nodeInfo?.usage?.users?.total;
+
+    server.software = nodeInfo?.software?.name;
+
+    // Firefish errors out on the instance API and the nodeinfo API doesn't include a logo
+    switch (server.software) {
+      case 'firefish':
+        server.avatar = '/img/firefish.png';
+        break;
+      case 'iceshrimp':
+        server.avatar = '/img/iceshrimp.ico';
+        break;
+      default:
+        //server.avatar = '/img/Fediverse_logo_proposal.svg';
+        server.avatar = '/img/Fediverse_logo_proposal_(mono_version).svg';
+    }
+  } 
+
+  // These implement the Mastodon custom_emojis API:
+  // Mastodon, Firefish, Pleroma, Friendica, Takahē, Fedibird.
+
+  // These do NOT:
+  // Akkoma, Misskey, Lemmy, Pixelfed, Kbin, WordPress, Plume, Peertube, WriteFreely, Bookwyrm, Hubzilla, GotoSocial, GNUSocial, Owncast
+  
   let emojos; 
   try {
     emojos = await getGroupedData('https://' + server.id + "/api/v1/custom_emojis" , "category");
     server.emojos = emojos;
   } catch (error) {
-    console.error(error);
+    console.debug(error);
+    //server.emojos = null;
     throw new Error("Server is not valid.");
   }
   
@@ -165,13 +200,31 @@ function groupBy(data, key) {
   }, {}); // {} is the initial value of the accumulator
 };
 
+async function getNodeInfo(domain) {
+  const axios = window.axios;
+  let response;
+
+  try {
+    // `/.well-known/nodeinfo`);
+    response = await axios.get('https://' + domain.trim() + `/nodeinfo/2.0`, {
+      timeout: 2000
+    });
+  } catch (error) {
+    console.debug(error)
+  }
+
+  return response?.data ?? null;
+}
+
 async function getInstance(domain, version = "v2") {
   const axios = window.axios;
   let response;
   try {
-    response = await axios.get('https://' + domain.trim() + `/api/${version}/instance`);
+    response = await axios.get('https://' + domain.trim() + `/api/${version}/instance`, {
+      timeout: 2000
+    });
   } catch (error) {
-    console.error(error);
+    console.debug(error);
   }
 
   return response?.data ?? null;

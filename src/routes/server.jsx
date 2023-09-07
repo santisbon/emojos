@@ -77,7 +77,7 @@ export default function Server() {
                   Registrations open: {server.registrationsEnabled ? "Yes" : "No"}<br/>
                   Approval required: {server.approvalRequired ? "Yes" : "No"} <br />
                   Character limit: {new Intl.NumberFormat().format(server.maxchars)}<br/>
-                  Translation: {server.translation ? "Yes": "No"}
+                  Translation: {server.translation ? "Yes": "N/A"}
                 </p>
               </>
             ) : (
@@ -124,10 +124,16 @@ export default function Server() {
         </div>
       </div>
       <div>
-        <h2>Custom Emojis</h2>
-        <dl>
-          {Object.entries(server.emojos).map(pair => {return (<Emojos key={pair[0]} category={pair[0]} elements={pair[1]} />);})}
-        </dl>
+        {
+          server.emojos ? (
+            <>
+            <h2>Custom Emojis</h2>
+            <dl>
+              {Object.entries(server.emojos).map(pair => {return (<Emojos key={pair[0]} category={pair[0]} elements={pair[1]} />);})}
+            </dl>
+            </>
+          ) : (<></>)
+        }
       </div>
     </>
   );
