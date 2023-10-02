@@ -110,9 +110,10 @@ export async function getServer(id) {
     emojos = await getGroupedData('https://' + server.id + "/api/v1/custom_emojis" , "category");
     server.emojos = emojos;
   } catch (error) {
-    console.debug(error);
+    console.log("Error getting custom emojis");
+    console.log(error);
     //server.emojos = null;
-    throw new Error("Server is not valid.");
+    throw new Error("Server is not valid or has a misconfigured CORS policy preventing web clients from accessing its info.");
   }
   
   return server ?? null;
@@ -213,7 +214,8 @@ async function getNodeInfo(domain) {
       timeout: 2000
     });
   } catch (error) {
-    console.debug(error)
+    console.log("Error getting node info 2.0");
+    console.log(error);
   }
 
   return response?.data ?? null;
@@ -227,7 +229,8 @@ async function getInstance(domain, version = "v2") {
       timeout: 2000
     });
   } catch (error) {
-    console.debug(error);
+    console.log("Error getting instance " + `${version}` + ` for ${domain.trim()}`);
+    console.log(error);
   }
 
   return response?.data ?? null;
