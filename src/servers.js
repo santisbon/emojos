@@ -106,11 +106,13 @@ export async function getServer(id) {
       case 'lemmy':
         server.avatar = server.avatar ?? 'https://joinfediverse.wiki/images/5/50/Lemmy.svg'
       case 'pixelfed':
-        server.avatar = server.avatar ?? 'https://joinfediverse.wiki/images/c/c6/Pixelfed.svg'
+        server.avatar = server.avatar ?? 'https://pixelfed.nyc3.cdn.digitaloceanspaces.com/logos/pixelfed-full-color.svg'
       case 'wordpress':
-        server.avatar = server.avatar ?? 'https://joinfediverse.wiki/images/a/ae/WordPress.svg'
+        server.avatar = server.avatar ?? 'https://joinfediverse.wiki/images/2/20/WordPress_logo.svg'
       case 'peertube':
         server.avatar = server.avatar ?? 'https://joinfediverse.wiki/images/7/7c/PeerTube_logo.svg'
+      case 'gnusocial':
+        server.avatar = server.avatar ?? 'https://joinfediverse.wiki/images/a/a3/GNU_social_logo.svg'
       default:
         server.avatar = server.avatar ?? 'https://joinfediverse.wiki/images/4/40/Fediverse.svg';
     }
