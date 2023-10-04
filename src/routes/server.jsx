@@ -194,7 +194,7 @@ function Emojos(props) {
         <div className='grid-container'>
           {props.elements.map(element => {
             return (<dd key={element.shortcode} onClick={() => {copyEmojo(element.shortcode)}}>
-                <img className='grid-item' src={element.url} alt={element.shortcode} />
+                <img className='grid-item' src={element.static_url} alt={element.shortcode} />
                 <span id={element.shortcode}>:{element.shortcode}:</span>
               </dd>);
           })}
