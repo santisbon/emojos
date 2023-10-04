@@ -1,6 +1,4 @@
 # Custom emojis from Fediverse servers 
-
-Supports Mastodon, Firefish, Pleroma, Friendica, Takahē, Fedibird.
   
 ## Features
 

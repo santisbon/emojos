@@ -2,8 +2,9 @@ export default function Index() {
   return (
     <>
       <p className="zero-state">
-        Keep a list of Fediverse servers and view their custom emojis and other features like character limit 
-        and translation when available. Curently supports Mastodon, Firefish, Pleroma, Iceshrimp, Friendica, Takahē, and Fedibird.
+        Keep a list of Fediverse servers and view their custom emojis (where available) and other features like character limit 
+        and translation. 
+        <br></br>Curently supports Mastodon, Firefish, Iceshrimp, Pleroma, Akkoma, Friendica, Takahē, Fedibird, Lemmy, Pixelfed, WordPress, Peertube, GotoSocial, GNUSocial.
         <br></br>You can find a server on
       <a href='https://instances.social/list/advanced#lang=&allowed=&prohibited=&min-users=20000&max-users=' 
       target='_blank' rel='noopener noreferrer'

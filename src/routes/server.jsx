@@ -70,13 +70,14 @@ export default function Server() {
           {
             server.version ? (
               <>
-                <p>
+                <p> 
+                  Software: {server.software}<br/>
                   Version: {server.version}<br/>
                   Users: {new Intl.NumberFormat().format(server.users)}<br />
-                  Monthly active users: {new Intl.NumberFormat().format(server.mau)} ({server.maupct})<br/>
+                  Monthly active users: {server.mau ? new Intl.NumberFormat().format(server.mau) : "Not reported"} {server.maupct ? "("+server.maupct+")" : ""}<br/>
                   Registrations open: {server.registrationsEnabled ? "Yes" : "No"}<br/>
                   Approval required: {server.approvalRequired ? "Yes" : "No"} <br />
-                  Character limit: {new Intl.NumberFormat().format(server.maxchars)}<br/>
+                  Character limit: {server.maxchars ? new Intl.NumberFormat().format(server.maxchars): "Not reported"}<br/>
                   Translation: {server.translation ? "Yes": "N/A"}
                 </p>
               </>
@@ -132,7 +133,7 @@ export default function Server() {
               {Object.entries(server.emojos).map(pair => {return (<Emojos key={pair[0]} category={pair[0]} elements={pair[1]} />);})}
             </dl>
             </>
-          ) : (<></>)
+          ) : (<>Server has no public custom emojis or has a misconfigured CORS policy preventing browsers from accessing the emojis API.</>)
         }
       </div>
     </>
