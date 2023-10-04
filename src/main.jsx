@@ -9,6 +9,7 @@ import { action as destroyAction } from "./routes/destroy";
 import { action as createAction } from "./routes/create";
 import ErrorPage from "./error-page";
 import Server, { loader as serverLoader, action as serverAction, } from "./routes/server";
+import Donate from './routes/donate';
 
 /* 
 Pathless route
@@ -31,6 +32,10 @@ const router = createBrowserRouter(
     >
       <Route errorElement={<ErrorPage />}>
         <Route index element={<Index />} />
+        <Route 
+          path='/donate'
+          element={<Donate />}
+        />
         <Route
           path=":serverId"
           element={<Server />}

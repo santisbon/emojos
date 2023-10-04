@@ -210,7 +210,7 @@ export default function Root() {
           </picture>
           <a href="https://fedia.social/@santisbon" target='_blank' rel='noopener noreferrer'>Fediverse</a>
         </div>
-        <div><Link to="/" className="center" onClick={closeNav}>Donate</Link></div>
+        <div><Link to="/donate" className="center" onClick={closeNav}>Donate</Link></div>
       </div>
       <div 
         id="detail"
