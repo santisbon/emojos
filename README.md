@@ -1,13 +1,5 @@
 # Custom emojis from Fediverse servers 
-  
-## Features
-
-- Keep a list of Fediverse servers to view their custom emojis and other features like character limit and translation.
-- Searching your list looks in the server name and any personal notes you add to it. Tip: You can search for your favorites by typing "favorite".
-- Click/tap to copy emojos.
-- Light and dark themes. Follows your system preferences but allows manual override.
-- Install as an app on desktop and mobile for [browsers that support it](https://web.dev/learn/pwa/progressive-web-apps/#compatibility).
-- Shareable URLs.
+Progressive Web App (PWA) to keep track of fediverse server info.
 
 ## Test locally
 
