@@ -1,5 +1,16 @@
-# Custom emojis from Fediverse servers 
-Progressive Web App (PWA) to keep track of fediverse server info.
+# Fediverse server viewer 
+Progressive Web App (PWA) to keep track of server info and custom emojis.
+
+## Production deployment
+The current deployment has these characteristics:
+- Hosted as a secure static site on object storage (S3). 
+- Served through a CDN (CloudFront). 
+  - A CloudFront Function to rewrite URIs that are meant to be handled by client-side routing.
+  - A Content Security Policy for the response headers from the distribution.
+  - Using edge locations in North America and Europe.
+- Users routed by Route 53 with a custom domain.
+- Using Infrastructure as Code (CloudFormation).
+</details>  
 
 ## Test locally
 
@@ -22,11 +33,11 @@ If you want to run it on a different port:
 npm run dev -- --port 8000
 ```
 
-## Details
+## Development Details
 <details> 
 <summary>See more</summary>
+<br>
 
-## Development
 The app was bootstrapped with [Vite](https://vitejs.dev) as the bundler and dev server and the React template:
 ```shell
 npm create vite@latest name-of-your-project -- --template react
@@ -48,14 +59,3 @@ To install the plugin:
 ```shell
 npm i vite-plugin-pwa -D
 ```
-
-## Recommended deployment
-The current deployment has these characteristics:
-- Hosted as a secure static site on object storage (S3). 
-- Served through a CDN (CloudFront). 
-  - A CloudFront Function to rewrite URIs that are meant to be handled by client-side routing.
-  - A Content Security Policy for the response headers from the distribution.
-  - Using edge locations in North America and Europe.
-- Users routed by Route 53 with a custom domain.
-- Using Infrastructure as Code (CloudFormation).
-</details>  
