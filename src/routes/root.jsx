@@ -129,7 +129,7 @@ export default function Root() {
               name="serverId"
               aria-label="Add server"
               placeholder="mastodon.social"
-              size="15"
+              size="13"
               required
             /> 
             <button type="submit">Add</button>
@@ -144,7 +144,7 @@ export default function Root() {
               placeholder="Search"
               type="text"
               name="q"
-              size="13"
+              size="11"
               defaultValue={q}
               onChange={(event) => {
                 const isFirstSearch = q == null;
