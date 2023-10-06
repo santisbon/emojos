@@ -3,22 +3,16 @@ Progressive Web App (PWA) to keep track of server info and custom emojis.
 
 ## Production deployment
 The current deployment has these characteristics:
-- Hosted as a secure static site on object storage (S3). 
+- Hosted as a secure [static site](https://github.com/santisbon/static-site) on object storage (S3). 
 - Served through a CDN (CloudFront). 
-  - A CloudFront Function to rewrite URIs that are meant to be handled by client-side routing.
-  - A Content Security Policy for the response headers from the distribution.
+  - [CloudFront Function](https://github.com/santisbon/amazon-cloudfront-functions) to rewrite URIs that are meant to be handled by client-side routing.
+  - Content Security Policy for the response headers from the distribution.
   - Using edge locations in North America and Europe.
-- Users routed by Route 53 with a custom domain.
-- Using Infrastructure as Code (CloudFormation).
+- Route 53 for DNS.
+- Infrastructure as Code (CloudFormation).
 </details>  
 
-## Test locally
-
-Node 20 seems to break Babel which breaks React so if you run into that issue you should use Node 18 and add it to your PATH e.g.
-```shell
-brew install node@18
-echo 'export PATH="/opt/homebrew/opt/node@18/bin:$PATH"' >> ~/.zshrc
-```
+## Run locally
 
 Run the app
 ```shell
@@ -33,10 +27,16 @@ If you want to run it on a different port:
 npm run dev -- --port 8000
 ```
 
-## Development Details
+## Implementation Details
 <details> 
 <summary>See more</summary>
 <br>
+
+Node 20 seems to break Babel which breaks React so if you run into that issue you should use Node 18 and add it to your PATH e.g.
+```shell
+brew install node@18
+echo 'export PATH="/opt/homebrew/opt/node@18/bin:$PATH"' >> ~/.zshrc
+```
 
 The app was bootstrapped with [Vite](https://vitejs.dev) as the bundler and dev server and the React template:
 ```shell
