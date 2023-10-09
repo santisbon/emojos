@@ -39,5 +39,17 @@ Resources:
         - x86_64
       MemorySize: 128
       Timeout: 100
-      Description: Get custom emojis
+      Description: Get custom emojis.
+      Policies: []
+
+  getInstanceFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: src/handlers/get-instance.getByIdHandler
+      Runtime: nodejs18.x
+      Architectures:
+        - x86_64
+      MemorySize: 128
+      Timeout: 100
+      Description: Get instance.
       Policies: []
