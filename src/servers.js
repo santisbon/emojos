@@ -2,6 +2,11 @@ import localforage from "localforage";
 import { matchSorter } from "match-sorter";
 import sortBy from "sort-by";
 
+/**
+ * Get saved server list
+ * @param {string} query 
+ * @returns 
+ */
 export async function getServers(query) {
   let servers = await localforage.getItem("servers");
   if (!servers) servers = [];
@@ -50,6 +55,7 @@ export async function getServer(id) {
 
   server.domain = id;
 
+  //TODO: Get from API
   let instancev1 = await getInstance(server.id, "v1");
   let instancev2 = await getInstance(server.id);
   
@@ -74,6 +80,7 @@ export async function getServer(id) {
 
     // Firefish.social and Fedibird don't have a working instance API, so we use nodeinfo.
     
+    //TODO: Get from API
     nodeInfo = await getNodeInfo(server.id);
     let repo = nodeInfo?.software?.repository ?? nodeInfo?.metadata?.repositoryUrl;
     
@@ -126,6 +133,7 @@ export async function getServer(id) {
   
   let emojos; 
   try {
+    //TODO: Get from API
     emojos = await getGroupedData('https://' + server.id + "/api/v1/custom_emojis" , "category");
     server.emojos = emojos;
   } catch (error) {
