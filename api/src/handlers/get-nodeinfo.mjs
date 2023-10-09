@@ -14,7 +14,6 @@ export const getByIdHandler = async (event) => {
   const id = event.pathParameters.id;
   let data;
  
-  //TODO: Call Fediverse API
   try {
     data = await getNodeInfo(id);
   } catch (err) {

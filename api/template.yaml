@@ -27,7 +27,17 @@ Resources:
         - x86_64
       MemorySize: 128
       Timeout: 100
-      Description: A simple example includes a HTTP get method to get one item by id.
+      Description: Get node info.
       Policies: []
-  # Each Lambda function is defined by properties:
-  # https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+
+  getEmojisFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: src/handlers/get-emojis.getByIdHandler
+      Runtime: nodejs18.x
+      Architectures:
+        - x86_64
+      MemorySize: 128
+      Timeout: 100
+      Description: Get custom emojis
+      Policies: []
