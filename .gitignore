@@ -12,6 +12,7 @@ dist
 dist-ssr
 dev-dist
 *.local
+packaged.template
 
 # Editor directories and files
 .vscode/*
