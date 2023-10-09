@@ -1,20 +1,36 @@
 # Fediverse server viewer 
-Progressive Web App (PWA) to keep track of server info and custom emojis.
+Progressive Web App (PWA) and API to keep track of server info and custom emojis.
 
-## Production deployment
-The current deployment has these characteristics:
-- Client hosted as a secure [static site](https://github.com/santisbon/static-site) on object storage (S3). 
-- Client served through a CDN (CloudFront). 
-  - [CloudFront Function](https://github.com/santisbon/amazon-cloudfront-functions) to rewrite URIs that are meant to be handled by client-side routing.
+## Architecture
+The current production deployment has: 
+- API
+  - Hosted as serverless functions.
+  - Served through a CDN.
+  - HTTP API Gateway endpoint access restricted with a Lambda authorizer [1].
+  - Using edge locations in North America and Europe.
+- PWA 
+  - Hosted as a secure static site [2] on object storage.
+  - Served through a CDN. 
+  - CloudFront Function [3] to rewrite URIs that are meant to be handled by client-side routing.
   - Content Security Policy for the response headers from the distribution.
   - Using edge locations in North America and Europe.
-- API deployed as serverless functions and served through a CDN by [restricting access on HTTP API Gateway endpoint with Lambda authorizer](https://aws.amazon.com/blogs/networking-and-content-delivery/restricting-access-http-api-gateway-lambda-authorizer/).
-- Route 53 for DNS.
-- Infrastructure as Code (CloudFormation).
+- Route 53 for DNS with custom domain for web app and API endpoints.
+- Infrastructure as Code.
 
-## Run locally
+[1] [https://aws.amazon.com/blogs/networking-and-content-delivery/restricting-access-http-api-gateway-lambda-authorizer/](https://aws.amazon.com/blogs/networking-and-content-delivery/restricting-access-http-api-gateway-lambda-authorizer/)  
+[2] [https://github.com/santisbon/static-site](https://github.com/santisbon/static-site)  
+[3] [https://github.com/santisbon/amazon-cloudfront-functions](https://github.com/santisbon/amazon-cloudfront-functions)  
 
-Run the app
+### API
+
+![API](https://d2908q01vomqb2.cloudfront.net/5b384ce32d8cdef02bc3a139d4cac0a22bb029e8/2022/07/22/Picture1-8.png)
+
+### PWA
+
+![Web](https://docs.aws.amazon.com/images/AmazonCloudFront/latest/DeveloperGuide/images/cloudfront-secure-static-website-overview.png)
+
+## To run web app locally
+
 ```shell
 npm install
 npm run dev # start dev server
@@ -26,6 +42,25 @@ If you want to run it on a different port:
 ```shell
 npm run dev -- --port 8000
 ```
+
+## To deploy API
+
+Deploy to your AWS account with the AWS CLI e.g.
+```sh
+aws cloudformation package \
+    --region us-east-1 \
+    --template-file template.yaml \
+    --output-template-file packaged.template \
+    --s3-bucket $ARTIFACTS \
+
+aws cloudformation deploy \
+    --region us-east-1 \
+    --stack-name $STACK \
+    --template-file packaged.template \
+    --capabilities CAPABILITY_IAM \
+    --parameter-overrides DomainName=$DOMAIN SubDomain=$SUBDOMAIN HostedZoneId=$HOSTEDZONE
+```
+
 
 ## Implementation Details
 <details> 
@@ -58,24 +93,6 @@ See [here](https://github.com/vite-pwa/vite-plugin-pwa/blob/main/src/types.ts) f
 To install the plugin:
 ```shell
 npm i vite-plugin-pwa -D
-```
-
-### API
-
-Deploy with the AWS CLI e.g.
-```sh
-aws cloudformation package \
-    --region us-east-1 \
-    --template-file template.yaml \
-    --output-template-file packaged.template \
-    --s3-bucket $ARTIFACTS \
-
-aws cloudformation deploy \
-    --region us-east-1 \
-    --stack-name $STACK \
-    --template-file packaged.template \
-    --capabilities CAPABILITY_IAM \
-    --parameter-overrides DomainName=$DOMAIN SubDomain=$SUBDOMAIN HostedZoneId=$HOSTEDZONE
 ```
 
 </details>  
