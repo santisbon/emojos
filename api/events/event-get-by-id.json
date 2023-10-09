@@ -1,6 +1,9 @@
 {
-    "httpMethod": "GET",
-    "pathParameters": {
-        "id": "id1"
-    }
+    "requestContext": {
+        "http": {
+            "method": "GET",
+            "path": "/nodeinfo/mastodon.social"
+        }
+    },
+    "pathParameters": { "id": "mastodon.social" }
 }

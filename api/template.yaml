@@ -1,6 +1,11 @@
 # The Lambda function is integrated with API Gateway (HTTP Type). 
 # The API Gateway is set as origin for CloudFront
 
+# When you use the AWS::CertificateManager::Certificate resource in a CloudFormation stack, domain validation is handled automatically 
+# if all three of the following are true: 
+# The certificate domain is hosted in Amazon Route 53, the domain resides in your AWS account, and you are using DNS validation.
+# https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-certificatemanager-certificate.html
+
 AWSTemplateFormatVersion: 2010-09-09
 Transform:
 - AWS::Serverless-2016-10-31
@@ -19,6 +24,16 @@ Parameters:
     Description: Log retention period for HTTP API access logs
     Type: Number
     MinValue: "1"
+  DomainName:
+    Description: Apex domain
+    Type: String
+  SubDomain:
+    Default: api
+    Description: Subdomain
+    Type: String
+  HostedZoneId:
+    Type: String
+
 
 Resources:
   getNodeInfoFunction:
@@ -681,6 +696,8 @@ Resources:
     Type: AWS::CloudFront::Distribution
     Properties:
       DistributionConfig: 
+        Aliases:
+          - !Sub '${SubDomain}.${DomainName}'
         PriceClass: 'PriceClass_100'
         Origins:
           - Id: apiGwOrigin
@@ -703,6 +720,34 @@ Resources:
           ViewerProtocolPolicy: "redirect-to-https"
           ForwardedValues:
             QueryString: 'false'
+        ViewerCertificate:
+          AcmCertificateArn: !Ref Certificate
+          MinimumProtocolVersion: 'TLSv1.1_2016'
+          SslSupportMethod: 'sni-only'
+
+  Certificate:
+    Type: AWS::CertificateManager::Certificate
+    Properties:
+      DomainName: !Sub '${SubDomain}.${DomainName}'
+      DomainValidationOptions:
+        - DomainName: !Sub '${SubDomain}.${DomainName}'
+          HostedZoneId: !Ref HostedZoneId
+      ValidationMethod: DNS
+
+
+  Route53RecordSetGroup:
+    Type: AWS::Route53::RecordSetGroup
+    Properties:
+      HostedZoneName: !Sub '${DomainName}.'
+      RecordSets:
+      - Name: !Sub '${SubDomain}.${DomainName}'
+        Type: 'A'
+        AliasTarget:
+          DNSName: !GetAtt 'cloudFrontDistribution.DomainName'
+          EvaluateTargetHealth: false
+          # The  following HostedZoneId is always used for alias records pointing to CF.
+          HostedZoneId: 'Z2FDTNDATAQYW2'
+
 
 Outputs:
   

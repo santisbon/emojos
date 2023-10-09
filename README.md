@@ -74,8 +74,8 @@ aws cloudformation deploy \
     --region us-east-1 \
     --stack-name $STACK \
     --template-file packaged.template \
-    --capabilities CAPABILITY_IAM
-
+    --capabilities CAPABILITY_IAM \
+    --parameter-overrides DomainName=$DOMAIN SubDomain=$SUBDOMAIN HostedZoneId=$HOSTEDZONE
 ```
 
 </details>  
