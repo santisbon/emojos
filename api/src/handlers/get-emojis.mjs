@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const getByIdHandler = async (event) => {
-  if (event.httpMethod !== 'GET') {
+  if (event.requestContext.http.method !== 'GET') {
     throw new Error(`getMethod only accept GET method, you tried: ${event.httpMethod}`);
   }
   // All log statements are written to CloudWatch

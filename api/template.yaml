@@ -620,6 +620,30 @@ Resources:
         - - integrations
           - !Ref nodeInfoApiGwIntegration
 
+  emojisApiGwRoute:
+    Type: AWS::ApiGatewayV2::Route
+    Properties: 
+      ApiId: !Ref apiGateway
+      RouteKey: 'GET /emojis/{id}'
+      AuthorizationType: 'CUSTOM'
+      AuthorizerId: !Ref apiGwAuthorizer
+      Target: !Join
+        - /
+        - - integrations
+          - !Ref emojisApiGwIntegration
+
+  instanceApiGwRoute:
+    Type: AWS::ApiGatewayV2::Route
+    Properties: 
+      ApiId: !Ref apiGateway
+      RouteKey: 'GET /instance/{id}'
+      AuthorizationType: 'CUSTOM'
+      AuthorizerId: !Ref apiGwAuthorizer
+      Target: !Join
+        - /
+        - - integrations
+          - !Ref instanceApiGwIntegration
+
   nodeInfoApiGwIntegration:
     Type: AWS::ApiGatewayV2::Integration
     Properties: 
@@ -629,6 +653,28 @@ Resources:
       IntegrationUri: !Sub
           - arn:${AWS::Partition}:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${lambdaArn}/invocations
           - lambdaArn: !GetAtt getNodeInfoFunction.Arn
+      PayloadFormatVersion: '2.0'
+
+  emojisApiGwIntegration:
+    Type: AWS::ApiGatewayV2::Integration
+    Properties: 
+      ApiId: !Ref apiGateway
+      IntegrationType: AWS_PROXY
+      IntegrationMethod: "POST"
+      IntegrationUri: !Sub
+          - arn:${AWS::Partition}:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${lambdaArn}/invocations
+          - lambdaArn: !GetAtt getEmojisFunction.Arn
+      PayloadFormatVersion: '2.0'
+
+  instanceApiGwIntegration:
+    Type: AWS::ApiGatewayV2::Integration
+    Properties: 
+      ApiId: !Ref apiGateway
+      IntegrationType: AWS_PROXY
+      IntegrationMethod: "POST"
+      IntegrationUri: !Sub
+          - arn:${AWS::Partition}:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${lambdaArn}/invocations
+          - lambdaArn: !GetAtt getInstanceFunction.Arn
       PayloadFormatVersion: '2.0'
 
   apiGwStage:
@@ -686,6 +732,34 @@ Resources:
             __ApiId__:
               Ref: apiGateway
 
+  getEmojisLambdaPermission:
+    Type: 'AWS::Lambda::Permission'
+    Properties:
+      Action: 'lambda:InvokeFunction'
+      Principal: apigateway.amazonaws.com
+      FunctionName: !Ref getEmojisFunction
+      SourceArn:
+        'Fn::Sub':
+          - >-
+            arn:${AWS::Partition}:execute-api:${AWS::Region}:${AWS::AccountId}:${__ApiId__}/${__Stage__}/*
+          - __Stage__: '*'
+            __ApiId__:
+              Ref: apiGateway
+
+  getInstanceLambdaPermission:
+    Type: 'AWS::Lambda::Permission'
+    Properties:
+      Action: 'lambda:InvokeFunction'
+      Principal: apigateway.amazonaws.com
+      FunctionName: !Ref getInstanceFunction
+      SourceArn:
+        'Fn::Sub':
+          - >-
+            arn:${AWS::Partition}:execute-api:${AWS::Region}:${AWS::AccountId}:${__ApiId__}/${__Stage__}/*
+          - __Stage__: '*'
+            __ApiId__:
+              Ref: apiGateway
+
   apiLogGroup:
     Type: AWS::Logs::LogGroup
     Properties: 
@@ -733,7 +807,6 @@ Resources:
         - DomainName: !Sub '${SubDomain}.${DomainName}'
           HostedZoneId: !Ref HostedZoneId
       ValidationMethod: DNS
-
 
   Route53RecordSetGroup:
     Type: AWS::Route53::RecordSetGroup
