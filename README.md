@@ -3,14 +3,14 @@ Progressive Web App (PWA) to keep track of server info and custom emojis.
 
 ## Production deployment
 The current deployment has these characteristics:
-- Hosted as a secure [static site](https://github.com/santisbon/static-site) on object storage (S3). 
-- Served through a CDN (CloudFront). 
+- Client hosted as a secure [static site](https://github.com/santisbon/static-site) on object storage (S3). 
+- Client served through a CDN (CloudFront). 
   - [CloudFront Function](https://github.com/santisbon/amazon-cloudfront-functions) to rewrite URIs that are meant to be handled by client-side routing.
   - Content Security Policy for the response headers from the distribution.
   - Using edge locations in North America and Europe.
+- API deployed as serverless functions and served through a CDN by [restricting access on HTTP API Gateway endpoint with Lambda authorizer](https://aws.amazon.com/blogs/networking-and-content-delivery/restricting-access-http-api-gateway-lambda-authorizer/).
 - Route 53 for DNS.
 - Infrastructure as Code (CloudFormation).
-</details>  
 
 ## Run locally
 
@@ -30,8 +30,8 @@ npm run dev -- --port 8000
 ## Implementation Details
 <details> 
 <summary>See more</summary>
-<br>
 
+### Client
 Node 20 seems to break Babel which breaks React so if you run into that issue you should use Node 18 and add it to your PATH e.g.
 ```shell
 brew install node@18
@@ -59,3 +59,23 @@ To install the plugin:
 ```shell
 npm i vite-plugin-pwa -D
 ```
+
+### API
+
+Deploy with the AWS CLI e.g.
+```sh
+aws cloudformation package \
+    --region us-east-1 \
+    --template-file template.yaml \
+    --output-template-file packaged.template \
+    --s3-bucket $ARTIFACTS \
+
+aws cloudformation deploy \
+    --region us-east-1 \
+    --stack-name $STACK \
+    --template-file packaged.template \
+    --capabilities CAPABILITY_IAM
+
+```
+
+</details>  
