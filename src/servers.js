@@ -202,7 +202,7 @@ const getEmojis = async (domain, group) => {
 
   try {
     response = await axios.get('https://emojosapi.santisbon.me/emojis/' + domain.trim(), {
-      timeout: 4000
+      timeout: 20000
     });
   } catch (error) {
     console.log("Error getting emojis");

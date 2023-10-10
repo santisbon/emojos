@@ -133,7 +133,7 @@ export default function Server() {
               {Object.entries(server.emojos).map(pair => {return (<Emojos key={pair[0]} category={pair[0]} elements={pair[1]} />);})}
             </dl>
             </>
-          ) : (<>Server has no public custom emojis or has a misconfigured CORS policy preventing browsers from accessing the emojis API.</>)
+          ) : (<>Server has no public custom emojis or took too long to respond.</>)
         }
       </div>
     </>
