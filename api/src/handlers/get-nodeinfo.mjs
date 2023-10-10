@@ -11,7 +11,6 @@ export const getByIdHandler = async (event) => {
   // All log statements are written to CloudWatch
   console.info('received:', event);
  
-  //TODO: Get id from pathParameters from APIGateway because of `/{id}` at template.yaml
   const id = event.pathParameters.id;
   let data;
  

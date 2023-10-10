@@ -120,7 +120,6 @@ export async function getServer(id) {
   
   let emojos; 
   try {
-    //TODO: Get from API
     emojos = await getEmojis(server.id, "category");
     server.emojos = emojos;
   } catch (error) {
