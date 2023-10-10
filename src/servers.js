@@ -115,9 +115,6 @@ export async function getServer(id) {
   let maupct = server.mau/server.users;
   server.maupct = maupct ? Number(maupct).toLocaleString(new Intl.NumberFormat(), {style: 'percent', minimumFractionDigits:2}) : null;
   
-  // No public CORS-enabled emoji API:
-  // Misskey, Lemmy, Pixelfed, Kbin, WordPress, Plume, Peertube, WriteFreely, Bookwyrm, Hubzilla, GotoSocial, GNUSocial, Owncast
-  
   let emojos; 
   try {
     emojos = await getEmojis(server.id, "category");
