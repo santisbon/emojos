@@ -48,6 +48,26 @@ Resources:
       Description: Get node info.
       Policies: []
 
+  getNodeInfoVersion:
+    Type: AWS::Lambda::Version
+    Properties:
+      FunctionName: !Ref getNodeInfoFunction
+      Description: v1
+
+  getNodeInfoProdAlias:
+    Type: AWS::Lambda::Alias
+    Properties:
+      FunctionName: !Ref getNodeInfoFunction
+      FunctionVersion: "1"
+      Name: prod
+
+  getNodeInfoTestAlias:
+    Type: AWS::Lambda::Alias
+    Properties:
+      FunctionName: !Ref getNodeInfoFunction
+      FunctionVersion: !GetAtt getNodeInfoVersion.Version
+      Name: test
+
   getEmojisFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -60,6 +80,19 @@ Resources:
       Description: Get custom emojis.
       Policies: []
 
+  getEmojisVersion:
+    Type: AWS::Lambda::Version
+    Properties:
+      FunctionName: !Ref getEmojisFunction
+      Description: v1
+
+  getEmojisAlias:
+    Type: AWS::Lambda::Alias
+    Properties:
+      FunctionName: !Ref getEmojisFunction
+      FunctionVersion: !GetAtt getEmojisVersion.Version
+      Name: PROD
+
   getInstanceFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -71,6 +104,19 @@ Resources:
       Timeout: 100
       Description: Get instance.
       Policies: []
+
+  getInstanceVersion:
+    Type: AWS::Lambda::Version
+    Properties:
+      FunctionName: !Ref getInstanceFunction
+      Description: v1
+
+  getInstanceAlias:
+    Type: AWS::Lambda::Alias
+    Properties:
+      FunctionName: !Ref getInstanceFunction
+      FunctionVersion: !GetAtt getInstanceVersion.Version
+      Name: PROD
 
   # Secret to store custom header
   OriginVerifySecret:
