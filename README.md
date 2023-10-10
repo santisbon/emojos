@@ -6,6 +6,7 @@ The current production deployment has:
 - API
   - Hosted as serverless functions.
   - HTTP API Gateway endpoint access restricted with a Lambda authorizer [1].
+  - CORS enabled.
   - Served through a CDN.
   - Using edge locations in North America and Europe.
 - PWA 
