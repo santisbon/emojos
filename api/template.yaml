@@ -607,6 +607,9 @@ Resources:
     Properties:
       ProtocolType: HTTP  
       Name: EmojosAPIGateway
+      CorsConfiguration:
+        AllowOrigins: 
+          - "*"
 
   nodeInfoApiGwRoute:
     Type: AWS::ApiGatewayV2::Route
@@ -636,7 +639,7 @@ Resources:
     Type: AWS::ApiGatewayV2::Route
     Properties: 
       ApiId: !Ref apiGateway
-      RouteKey: 'GET /instance/{id}'
+      RouteKey: 'GET /instance/{version}/{id}'
       AuthorizationType: 'CUSTOM'
       AuthorizerId: !Ref apiGwAuthorizer
       Target: !Join

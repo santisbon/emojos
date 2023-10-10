@@ -8,10 +8,12 @@ export const getByIdHandler = async (event) => {
   console.info('received:', event);
  
   const id = event.pathParameters.id;
+  const version = event.pathParameters.version;
+
   let data;
  
   try {
-    data = await getInstance(id);
+    data = await getInstance(id, version);
   } catch (err) {
     console.log("Error", err);
   }
@@ -26,7 +28,7 @@ export const getByIdHandler = async (event) => {
   return response;
 }
 
-async function getInstance(domain, version = "v2") {
+async function getInstance(domain, version = "v1") {
   //const axios = window.axios;
   let response;
   try {

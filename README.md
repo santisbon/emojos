@@ -5,8 +5,8 @@ Progressive Web App (PWA) and API to keep track of server info and custom emojis
 The current production deployment has: 
 - API
   - Hosted as serverless functions.
-  - Served through a CDN.
   - HTTP API Gateway endpoint access restricted with a Lambda authorizer [1].
+  - Served through a CDN.
   - Using edge locations in North America and Europe.
 - PWA 
   - Hosted as a secure static site [2] on object storage.
@@ -14,7 +14,7 @@ The current production deployment has:
   - CloudFront Function [3] to rewrite URIs that are meant to be handled by client-side routing.
   - Content Security Policy for the response headers from the distribution.
   - Using edge locations in North America and Europe.
-- Route 53 for DNS with custom domain for web app and API endpoints.
+- Route 53 for DNS with custom domain for web app and API endpoints with SSL.
 - Infrastructure as Code.
 
 [1] [https://aws.amazon.com/blogs/networking-and-content-delivery/restricting-access-http-api-gateway-lambda-authorizer/](https://aws.amazon.com/blogs/networking-and-content-delivery/restricting-access-http-api-gateway-lambda-authorizer/)  

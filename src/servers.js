@@ -54,76 +54,63 @@ export async function getServer(id) {
   }
 
   server.domain = id;
-
-  //TODO: Get from API
-  let instancev1 = await getInstance(server.id, "v1");
-  let instancev2 = await getInstance(server.id);
+  let instancev1 = await getInstance(server.id, 'v1');
   
   server.avatar = instancev1?.thumbnail ?? null;
-  server.software = instancev2?.source_url ?? null;
-  server.version = instancev1?.version ?? null;
-  //server.users = null;
-  server.users = instancev1?.stats?.user_count ?? null;
-  server.mau = instancev2?.usage?.users?.active_month ?? null;
-  server.registrationsEnabled = instancev1?.registrations ?? null;
   server.approvalRequired = instancev1?.approval_required ?? null;
   // Akkoma max chars is in instance v1 with a different name, not in nodeinfo
   server.maxchars = (instancev1?.configuration?.statuses?.max_characters ?? instancev1?.max_toot_chars) ?? null;
-  server.translation = instancev2?.configuration?.translation?.enabled ?? null;
   server.description = (instancev1?.description ? instancev1.description : instancev1?.short_description) ?? null;
 
+  // Firefish.social and Fedibird don't have a working instance API.
+
   let nodeInfo;
+  
+  nodeInfo = await getNodeInfo(server.id);
+  let repo = nodeInfo?.software?.repository ?? nodeInfo?.metadata?.repositoryUrl;
+  
+  server.software = server.software ?? nodeInfo?.software?.name + (repo ? " from " + repo : "");
+  server.version = server.version ?? nodeInfo?.software?.version;
+  server.description = server.description ?? nodeInfo?.metadata?.nodeDescription;
+  server.mau = (server.mau ?? nodeInfo?.usage?.users?.activeMonth) ?? null;
+  server.maxchars = (server.maxchars ?? nodeInfo?.metadata?.maxNoteTextLength) ?? null;
+  server.registrationsEnabled = server.registrationsEnabled ?? nodeInfo?.openRegistrations;
+  server.users = server.users ?? nodeInfo?.usage?.users?.total;
+  
+  console.log(nodeInfo?.software?.name);
 
-  if (!instancev2) { 
-    // Mastodon and Friendica don't allow cross-origin on the `nodeinfo` API (bug) 
-    // so we only call it on servers without an instance v2 API.
+  switch (nodeInfo?.software?.name) {
+    case 'mastodon':
+      let instancev2 = await getInstance(server.id, 'v2');
+      server.translation = instancev2?.configuration?.translation?.enabled ?? null;
+      break;
+    case 'firefish':
+      // Firefish and Iceshrimp have a blank image as avatar so we're not using it
+      //server.avatar = instancev1?.uri + server.avatar ?? '/img/firefish.png';
+      server.avatar = '/img/firefish.png';
+      break;
+    case 'iceshrimp':
+      server.avatar = '/img/iceshrimp.ico';
+      break;
+    case 'pleroma':
+      server.mau = instancev1?.pleroma?.stats?.mau;
+      break;
+    case 'fedibird':
+      server.avatar = server.avatar ?? 'https://joinfediverse.wiki/images/7/7c/Fedibird.svg'
+    case 'lemmy':
+      server.avatar = server.avatar ?? 'https://joinfediverse.wiki/images/5/50/Lemmy.svg'
+    case 'pixelfed':
+      server.avatar = server.avatar ?? 'https://pixelfed.nyc3.cdn.digitaloceanspaces.com/logos/pixelfed-full-color.svg'
+    case 'wordpress':
+      server.avatar = server.avatar ?? 'https://joinfediverse.wiki/images/2/20/WordPress_logo.svg'
+    case 'peertube':
+      server.avatar = server.avatar ?? 'https://joinfediverse.wiki/images/7/7c/PeerTube_logo.svg'
+    case 'gnusocial':
+      server.avatar = server.avatar ?? 'https://joinfediverse.wiki/images/a/a3/GNU_social_logo.svg'
+    default:
+      server.avatar = server.avatar ?? 'https://joinfediverse.wiki/images/4/40/Fediverse.svg';
+  }
 
-    // Firefish.social and Fedibird don't have a working instance API, so we use nodeinfo.
-    
-    //TODO: Get from API
-    nodeInfo = await getNodeInfo(server.id);
-    let repo = nodeInfo?.software?.repository ?? nodeInfo?.metadata?.repositoryUrl;
-    
-    server.software = server.software ?? nodeInfo?.software?.name + (repo ? " from " + repo : "");
-    server.version = server.version ?? nodeInfo?.software?.version;
-    //server.description = nodeInfo?.metadata?.nodeDescription;
-    server.mau = (server.mau ?? nodeInfo?.usage?.users?.activeMonth) ?? null;
-    server.maxchars = (server.maxchars ?? nodeInfo?.metadata?.maxNoteTextLength) ?? null;
-    //server.translation = null;
-    server.registrationsEnabled = server.registrationsEnabled ?? nodeInfo?.openRegistrations;
-    //server.approvalRequired = null;
-    server.users = server.users ?? nodeInfo?.usage?.users?.total;
-    
-    console.log(nodeInfo?.software?.name);
-
-    switch (nodeInfo?.software?.name) {
-      case 'firefish':
-        // Firefish and Iceshrimp have a blank image as avatar so we're not using it
-        //server.avatar = instancev1?.uri + server.avatar ?? '/img/firefish.png';
-        server.avatar = '/img/firefish.png';
-        break;
-      case 'iceshrimp':
-        server.avatar = '/img/iceshrimp.ico';
-        break;
-      case 'pleroma':
-        server.mau = instancev1?.pleroma?.stats?.mau;
-        break;
-      case 'fedibird':
-        server.avatar = server.avatar ?? 'https://joinfediverse.wiki/images/7/7c/Fedibird.svg'
-      case 'lemmy':
-        server.avatar = server.avatar ?? 'https://joinfediverse.wiki/images/5/50/Lemmy.svg'
-      case 'pixelfed':
-        server.avatar = server.avatar ?? 'https://pixelfed.nyc3.cdn.digitaloceanspaces.com/logos/pixelfed-full-color.svg'
-      case 'wordpress':
-        server.avatar = server.avatar ?? 'https://joinfediverse.wiki/images/2/20/WordPress_logo.svg'
-      case 'peertube':
-        server.avatar = server.avatar ?? 'https://joinfediverse.wiki/images/7/7c/PeerTube_logo.svg'
-      case 'gnusocial':
-        server.avatar = server.avatar ?? 'https://joinfediverse.wiki/images/a/a3/GNU_social_logo.svg'
-      default:
-        server.avatar = server.avatar ?? 'https://joinfediverse.wiki/images/4/40/Fediverse.svg';
-    }
-  } 
 
   let maupct = server.mau/server.users;
   server.maupct = maupct ? Number(maupct).toLocaleString(new Intl.NumberFormat(), {style: 'percent', minimumFractionDigits:2}) : null;
@@ -134,7 +121,7 @@ export async function getServer(id) {
   let emojos; 
   try {
     //TODO: Get from API
-    emojos = await getGroupedData('https://' + server.id + "/api/v1/custom_emojis" , "category");
+    emojos = await getEmojis(server.id, "category");
     server.emojos = emojos;
   } catch (error) {
     console.log("Error getting custom emojis");
@@ -142,11 +129,9 @@ export async function getServer(id) {
     
     server.emojos = null;
   }
-  
-  //console.log(instancev1, instancev2, nodeInfo, emojos);
 
-  if (!instancev1 && !instancev2 && !nodeInfo && !emojos) {
-    throw new Error("Server is not valid or has a misconfigured CORS policy preventing browsers from accessing its APIs.");
+  if (!instancev1 && !nodeInfo && !emojos) {
+    throw new Error("Server is not valid.");
   }
 
   return server ?? null;
@@ -212,29 +197,21 @@ export function updateSourceMedia(colorPreference) {
   });
 }
 
-const getGroupedData = async (url, group) => {
+const getEmojis = async (domain, group) => {
   const axios = window.axios;
-  const response = await axios.get(url);
-  return groupBy(response.data, group);
-};
+  let response;
 
-/**
- * Group an array by a key.
- * @param {Array} data array of objects
- * @param {string} key the key to group by
- * @returns {any} the grouped data 
- */
-function groupBy(data, key) { 
-  // `.reduce` takes in a function to call for each element in the array and an initial value to start the accumulation
-  return data.reduce((accumulator, currentValue) => {
-    var group = currentValue[key];
-    // initialize the accumulator for this group if empty
-    accumulator[group] = accumulator[group] || [];
-    // add this currentValue to its group within the accumulator
-    accumulator[group].push(currentValue);
-    // return the updated accumulator to the reduce function for the next iteration 
-    return accumulator; 
-  }, {}); // {} is the initial value of the accumulator
+  try {
+    response = await axios.get('https://emojosapi.santisbon.me/emojis/' + domain.trim(), {
+      timeout: 4000
+    });
+  } catch (error) {
+    console.log("Error getting emojis");
+    console.log(error);
+    response = null;
+  }
+  
+  return response?.data ?? null;
 };
 
 async function getNodeInfo(domain) {
@@ -243,17 +220,8 @@ async function getNodeInfo(domain) {
   let nodeInfoLink;
 
   try {
-    // ``);
-    response = await axios.get('https://' + domain.trim() + `/.well-known/nodeinfo`, {
-      timeout: 2000
-    });
-    let links = response?.data.links ?? null;
-    if (links) {
-      nodeInfoLink = links[links.length -1].href;
-    }
-
-    response = await axios.get(nodeInfoLink, {
-      timeout: 2000
+    response = await axios.get('https://emojosapi.santisbon.me/nodeinfo/' + domain.trim(), {
+      timeout: 4000
     });
   } catch (error) {
     console.log("Error getting node info");
@@ -264,12 +232,12 @@ async function getNodeInfo(domain) {
   return response?.data ?? null;
 }
 
-async function getInstance(domain, version = "v2") {
+async function getInstance(domain, version = 'v1') {
   const axios = window.axios;
   let response;
   try {
-    response = await axios.get('https://' + domain.trim() + `/api/${version}/instance`, {
-      timeout: 2000
+    response = await axios.get(`https://emojosapi.santisbon.me/instance/${version}/${domain.trim()}` , {
+      timeout: 4000
     });
   } catch (error) {
     console.log("Error getting instance " + `${version}` + ` for ${domain.trim()}`);
