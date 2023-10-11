@@ -28,7 +28,7 @@ The current production deployment has:
 
 ### PWA
 
-![Web](https://docs.aws.amazon.com/images/AmazonCloudFront/latest/DeveloperGuide/images/cloudfront-secure-static-website-overview.png)
+![Web](https://i.imgur.com/ANDPmVO.png)
 
 ## To run web app locally
 
