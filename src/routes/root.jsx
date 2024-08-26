@@ -204,13 +204,9 @@ export default function Root() {
           </picture>
           <a href='https://github.com/santisbon/emojos' target='_blank' rel='noopener noreferrer'>GitHub</a> 
           |
-          <picture>
-            <source srcSet='/img/Fediverse_logo_proposal.svg' media='(prefers-color-scheme: dark)' />
-            <img src='/img/Fediverse_logo_proposal_(mono_version).svg' className='footer-item' alt='Fediverse' />
-          </picture>
-          <a href="https://fedia.social/@santisbon" target='_blank' rel='noopener noreferrer'>Fediverse</a>
+          &nbsp;⁂<a href="https://fedia.social/@santisbon" target='_blank' rel='noopener noreferrer'>Fediverse</a>
         </div>
-        <div><Link to="/donate" className="center" onClick={closeNav}>Donate</Link></div>
+        <div><Link to="/donate" className="center" /* onClick={closeNav} */>Donate</Link></div>
       </div>
       <div 
         id="detail"
