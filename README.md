@@ -68,11 +68,6 @@ aws cloudformation deploy \
 <summary>See more</summary>
 
 ### Client
-Node 20 seems to break Babel which breaks React so if you run into that issue you should use Node 18 and add it to your PATH e.g.
-```shell
-brew install node@18
-echo 'export PATH="/opt/homebrew/opt/node@18/bin:$PATH"' >> ~/.zshrc
-```
 
 The app was bootstrapped with [Vite](https://vitejs.dev) as the bundler and dev server and the React template:
 ```shell
