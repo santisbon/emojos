@@ -90,7 +90,7 @@ export async function getServer(id) {
       server.avatar = '/img/firefish.png';
       break;
     case 'iceshrimp':
-      server.avatar = '/img/iceshrimp.ico';
+      server.avatar = '/img/iceshrimplogo.png';
       break;
     case 'pleroma':
       server.mau = instancev1?.pleroma?.stats?.mau;
