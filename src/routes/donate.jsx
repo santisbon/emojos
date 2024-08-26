@@ -7,15 +7,24 @@ export default function Donate() {
       <p></p>
       <table>
         <tbody>
+        <tr>
+            <td>GitHub Sponsors</td>
+            <td className="center">
+              <iframe src="https://github.com/sponsors/santisbon/button" 
+                title="Sponsor santisbon" className="sponsor-logo"></iframe>
+            </td>
+          </tr>
           <tr>
-            <td>
+            <td>Ko-fi</td>
+            <td className="center">
               <a href='https://ko-fi.com/E1E2OOCOY' target='_blank' rel='noopener noreferrer'>
                 <img height='36' className='ko-fi-logo' src='https://storage.ko-fi.com/cdn/kofi2.png?v=3' border='0' alt='Buy Me a Coffee at ko-fi.com' />
               </a>
             </td>
           </tr>
           <tr>
-            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <td>Venmo</td>
+            <td className="center">
               <a href="https://account.venmo.com/u/Armando-Santisbon" target='_blank' rel='noopener noreferrer'> 
                   <img src='/img/venmo.svg' className='venmo-logo' alt='venmo'></img>
               </a>
