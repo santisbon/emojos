@@ -7,13 +7,6 @@ export default function Donate() {
       <p></p>
       <table>
         <tbody>
-        <tr>
-            <td>GitHub Sponsors</td>
-            <td className="center">
-              <iframe src="https://github.com/sponsors/santisbon/button" 
-                title="Sponsor santisbon" className="sponsor-logo"></iframe>
-            </td>
-          </tr>
           <tr>
             <td>Ko-fi</td>
             <td className="center">
