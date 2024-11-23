@@ -481,9 +481,10 @@ i {
   border: 0px;
 }
 
-.venmo-logo {
-  width: 80px;
-  object-fit: contain;
+.sponsor-logo {
+  background-color:#a4a4a4;
+  color:#000;
+  padding: 6px;
 }
 
 .center {
